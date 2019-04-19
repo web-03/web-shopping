@@ -11,6 +11,7 @@ var blogRouter = require('./routes/blog');
 var productRouter = require('./routes/product');
 var contactRouter = require('./routes/contact');
 var shoppingCartRouter = require('./routes/shopping-cart');
+var productDetailRouter = require('./routes/product-detail');
 
 var app = express();
 
@@ -31,6 +32,7 @@ app.use('/bai-viet',blogRouter);
 app.use('/san-pham',productRouter);
 app.use('/lien-he',contactRouter);
 app.use('/gio-hang',shoppingCartRouter);
+app.use('/chi-tiet-san-pham',productDetailRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
