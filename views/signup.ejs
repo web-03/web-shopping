@@ -160,7 +160,7 @@ input#firstname,input#email,input#password1,input#password2 {
 	border-top-color:transparent;
 	border-left-color:transparent;
 	border-right-color:transparent;
-	font-family: 'Raleway', sans-serif;
+	font-family:  sans-serif;
 	margin:0 auto 20px;
 	display:block;
 	outline:none;
@@ -424,19 +424,19 @@ p.copyright {
             <div class="content-agile2">
                 <form action="#" method="post">
                     <div class="form-control w3layouts"> 
-                        <input type="text" id="firstname" name="firstname" placeholder="Họ và tên" title="Please enter your First Name" required="">
+                        <input type="text" id="firstname" name="firstname" placeholder="Họ và tên" title="Nhập vào tên của bạn" required="">
                     </div>
         
                     <div class="form-control w3layouts">	
-                        <input type="email" id="email" name="email" placeholder="mail@example.com" title="Please enter a valid email" required="">
+                        <input type="email" id="email" name="email" placeholder="mail@example.com" title="Nhập vào email" required="">
                     </div>
         
                     <div class="form-control agileinfo">	
-                        <input type="password" class="lock" name="password" placeholder="Mật khẩu" id="password1" required="">
+                        <input type="password" class="lock" name="password" placeholder="Mật khẩu" id="password1" title="Nhập mật khẩu"required="">
                     </div>	
         
                     <div class="form-control agileinfo">	
-                        <input type="password" class="lock" name="confirm-password" placeholder="Nhập lại mật khẩu" id="password2" required="">
+                        <input type="password" class="lock" name="confirm-password" placeholder="Nhập lại mật khẩu" id="password2" title="Nhập lại mật khẩu"required="">
                     </div>			
                     
                     <input type="submit" class="register" value="Đăng kí">
@@ -450,7 +450,7 @@ p.copyright {
                         var pass2=document.getElementById("password2").value;
                         var pass1=document.getElementById("password1").value;
                         if(pass1!=pass2)
-                            document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+                            document.getElementById("password2").setCustomValidity("Mật khẩu không khớp");
                         else
                             document.getElementById("password2").setCustomValidity('');	 
                             //empty string means no validation error
