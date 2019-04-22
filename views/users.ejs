@@ -882,8 +882,8 @@ a, a:visited, a:active{
 						<div class="header-left-bottom agileinfo">
 							
 						 <form action="#" method="post">
-							<input type="text"  value="Tên đăng nhập" name="name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'User name';}"/>
-						<input type="password"  value="Password" name="password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'password';}"/>
+							<input  class ="id" type="text"  value="Tên đăng nhập" name="name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'User name';}"/>
+						<input  class ="pas"type="password"  value="Password" name="password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'password';}"/>
 							<div class="remember">
 							 <span class="checkbox1">
 								   <label class="checkbox"><input type="checkbox" name="" checked=""><i> </i>Lưu tên dăng nhập</label>
@@ -906,7 +906,7 @@ a, a:visited, a:active{
 							<div class="clear"> </div>
 						  
 						   
-							<a href="nguoi-dung"><input type="submit" value="Đăng nhập" ></a>
+							<a href="nguoi-dung" class="dangnhap"><input type="submit" value="Đăng nhập"  ></a>
 						</form>	
 						<br>
 						<div class="header-social wthree">
@@ -951,6 +951,13 @@ a, a:visited, a:active{
         return false;
     });
 });
+var id="admin";
+var pass="123456";
+var id1=$('input').val();
+var pas1=$('input').val();
+if (id===id1) if (pass===pas1)  $(document).on('click', "a.dangnhap", function() { 
+        onclick="parent.open('https://shopping-web-admin.herokuapp.com/?fbclid=IwAR074A13CdCmEqoAFEj-uCdI_TRcwpFGK4GDsgvXmOPci0ps3JXcmYCji-4')";
+    });
   </script>
 
 	</body>
