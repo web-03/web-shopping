@@ -755,114 +755,7 @@ span.sin-color {
 .header-left-bottom input[type="text"] {
     margin: 0 0 17px;
 }
-/*phần tử phủ toàn màn hình*/
-#over {
-    display: none;
-    background: #000;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.8;
-    z-index: 999;
-}
-a, a:visited, a:active{
-    text-decoration:none;
-}
-/* lớp login - cửa sổ đăng nhập*/
-.forgot
-{
-    background-color:#85B561;
-    height:auto;
-    width:450px;
-    font-family:Verdana, Arial, Helvetica, sans-serif;
-    font-size:14px;
-    padding-bottom:5px;
-    display:none;
-    overflow:hidden;
-    position:absolute;
-    z-index:99999;/*đặt z-index để nó nổi bật và chồng lên phần tử khác trong trang*/
-    top:10%;
-    left:50%;
-    margin-left:-300px;
-}
-		
-.forgot .forgot_title
-{
-    color:white;
-    font-size:16px;
-    padding:8px 0 5px 8px;
-    text-align:left;
-}
 
-.forgot-content label {
-    display: block;
-    padding-bottom: 7px;
-}
-
-.forgot-content span {
-    display: block;
-}
-.forgot-content
-{
-    padding-left:35px;
-    background-color:white;
-    margin-left:5px;
-    margin-right:5px;
-    height:auto;
-    padding-top:15px;
-    overflow:hidden;
-}
-	
-.img-close {
-    float: right;
-    margin-top:-43px;
-    margin-right:5px
-}	
-.button{
-    display: inline-block;
-    min-width: 46px;
-    text-align: center;
-    color: #444;
-    font-size: 14px;
-    font-weight: 700;
-    height: 36px;
-    padding: 0px 8px;
-    line-height: 36px;
-    border-radius: 4px;
-    transition: all 0.218s ease 0s;
-    border: 1px solid #DCDCDC;
-    background-color: #F5F5F5;
-    background-image: -moz-linear-gradient(center top , #F5F5F5, #F1F1F1);
-    cursor: pointer;
-}
-.button:hover{
-     border: 1px solid #DCDCDC;
-    text-decoration: none;
-    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.1);
-    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.1);
-    box-shadow: 0 2px 2px rgba(0,0,0,0.1);
-}
-.forgot input
-{
-    border:1px solid #D5D5D5;
-    border-radius:5px;
-    box-shadow:1px 1px 5px rgba(0,0,0,.07) inset;
-    color:black;
-    font:12px/25px "Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-    height:28px;
-    padding:0px 8px;
-    word-spacing:0.1em;
-    width:300px;
-}
-.submit-button{
-    display: inline-block;
-    padding: auto;
-    margin: 15px 75px;
-    width: 150px;
-}
-		
 		
 
 }
@@ -889,18 +782,25 @@ a, a:visited, a:active{
                </span>
               </div>
 							 <div class="forgot1">
-                 <h6><a href=#forgot-box class="forgot-window button">Quên mật khẩu?</a></h6>
-                 <div id="forgot-box" class="forgot">
-                 <p class="forgot_title"> Tìm lại mật khẩu</p>
-                 <a href="#" class="close"><img src="images/close.png" class="img-close" title="Close Window" alt="Close" /></a>
-                 <form method="post" class="forgot-content" action="#">
-                  <label class="email">
-                  <span>Điền vào email tài khoản của bạn</span>
-                  <input id="email" name="email" value="" type="text" autocomplete="on" placeholder="Email">
-                  </label>
-                  <button class="button submit-button" type="button">Xác nhận</button>
-                 </form>
-               </div>
+                  <a href="#login-box" class="login-window button">Đăng nhập</a>
+                  <div id="login-box" class="login">
+                      <p class="login_title"> Đăng nhập</p>
+                      <a href="#" class="close"><img src="close.png" class="img-close" title="Close Window" alt="Close" /></a>
+                      <form method="post" class="login-content" action="#">
+                      <label class="username">
+                      <span>Tên hoặc email</span>
+                      <input id="username" name="username" value="" type="text" autocomplete="on" placeholder="Username">
+                      </label>
+                      <label class="password">
+                      <span>Mật khẩu</span>
+                      <input id="password" name="password" value="" type="password" placeholder="Password">
+                      </label>
+                      <button class="button submit-button" type="button">Đăng nhập</button>
+                      <p>
+                      <a class="forgot" href="#">Quên mật khẩu?</a>
+                      </p>        
+                      </form>
+                  </div>
               </div>
 							<div class="clear"> </div>
 						  
@@ -923,13 +823,13 @@ a, a:visited, a:active{
   <!--footer end here-->
   <script>
     $(document).ready(function() {
-    $('a.forgot-window').click(function() {
+    $('a.login-window').click(function() {
 
         //lấy giá trị thuộc tính href - chính là phần tử "#login-box"
-        var ForgotBox = $(this).attr('href');
+        var loginBox = $(this).attr('href');
 
         //cho hiện hộp đăng nhập trong 300ms
-        $(ForgotBox).fadeIn("slow");
+        $(loginBox).fadeIn("slow");
 
         // thêm phần tử id="over" vào cuối thẻ body
         $('body').append('<div id="over"></div>');
@@ -940,13 +840,16 @@ a, a:visited, a:active{
 
     // khi click đóng hộp thoại
     $(document).on('click', "a.close, #over", function() { 
-        $('#over, .forgot').fadeOut(300 , function() {
+        $('#over, .login').fadeOut(300 , function() {
             $('#over').remove();  
         }); 
         return false;
     });
 	
 });
+
+
+
   </script>
 	</body>
 	
