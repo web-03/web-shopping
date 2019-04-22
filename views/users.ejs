@@ -868,6 +868,33 @@ a, a:visited, a:active{
 }
 /*--meadia quries end here--*/
 </style>
+<script>
+  $(document).ready(function() {
+  $('a.forgot-window').click(function() {
+
+      //lấy giá trị thuộc tính href - chính là phần tử "#login-box"
+      var ForgotBox = $(this).attr('href');
+
+      //cho hiện hộp đăng nhập trong 300ms
+      $(ForgotBox).fadeIn("slow");
+
+      // thêm phần tử id="over" vào cuối thẻ body
+      $('.forgot1').append('<div id="over"></div>');
+      $('#over').fadeIn(300);
+      
+      return false;
+  });
+
+  // khi click đóng hộp thoại
+  $(document).on('click', "a.close, #over", function() { 
+      $('#over, .forgot').fadeOut(300 , function() {
+          $('#over').remove();  
+      }); 
+      return false;
+  });
+
+});
+</script>
 </head>
 <body>
 	<!--header start here-->
@@ -890,7 +917,7 @@ a, a:visited, a:active{
               </div>
 							 <div class="forgot1">
                  <h6><a href=#forgot-box class="forgot-window button">Quên mật khẩu?</a></h6>
-                 <div id="forgot-box" class="forgot">
+                 <div id="forgot-box" class="forgot" style="display: none">
                  <p class="forgot_title"> Tìm lại mật khẩu</p>
                  <a href="#" class="close"><img src="images/close.png" class="img-close" title="Close Window" alt="Close" /></a>
                  <form method="post" class="forgot-content" action="#">
@@ -900,7 +927,7 @@ a, a:visited, a:active{
                   </label>
                   <button class="button submit-button" type="button">Xác nhận</button>
                  </form>
-               </div>
+                 </div>
               </div>
 							<div class="clear"> </div>
 						  
@@ -922,33 +949,7 @@ a, a:visited, a:active{
 	<% include footer %>
   <!--footer end here-->
   
-<script>
-    $(document).ready(function() {
-    $('a.forgot-window').click(function() {
 
-        //lấy giá trị thuộc tính href - chính là phần tử "#login-box"
-        var ForgotBox = $(this).attr('href');
-
-        //cho hiện hộp đăng nhập trong 300ms
-        $(ForgotBox).fadeIn("slow");
-
-        // thêm phần tử id="over" vào cuối thẻ body
-        $('.forgot1').append('<div id="over"></div>');
-        $('#over').fadeIn(300);
-        
-        return false;
-    });
-
-    // khi click đóng hộp thoại
-    $(document).on('click', "a.close, #over", function() { 
-        $('#over, .forgot').fadeOut(300 , function() {
-            $('#over').remove();  
-        }); 
-        return false;
-    });
-	
-});
-  </script>
 	</body>
 	
 	</html>
