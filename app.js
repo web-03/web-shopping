@@ -14,6 +14,7 @@ var shoppingCartRouter = require('./routes/shopping-cart');
 var productDetailRouter = require('./routes/product-detail');
 var signupRouter = require('./routes/signup');
 var indexuserRouter=require('./routes/indexuser');
+var updateInfUserRouter=require('./routes/updateInfUser');
 var app = express();
 
 // view engine setup
@@ -36,6 +37,7 @@ app.use('/gio-hang',shoppingCartRouter);
 app.use('/chi-tiet-san-pham',productDetailRouter);
 app.use('/dang-ki',signupRouter);
 app.use('/nguoi-dung',indexuserRouter);
+app.use('/cap-nhat-thong-tin',updateInfUserRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
