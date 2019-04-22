@@ -899,7 +899,7 @@ a, a:visited, a:active{
                   <span>Điền vào email tài khoản của bạn</span>
                   <input id="email" name="email" value="" type="text" autocomplete="on" placeholder="Email">
                   </label>
-                  <a href="#" class="submit-button" >Xác nhận</a>
+                  <button class="submit-button" type="button">Xác nhận</button>
                  </form>
                  </div>
               </div>
@@ -943,9 +943,10 @@ a, a:visited, a:active{
         return false;
     });
   //khi click xác nhận
-  $(document).on('click', "a.submit-button, #over", function() { 
+  $(document).on('click', "submit-button, #over", function() { 
         $('#over, .forgot').fadeOut(300 , function() {
-            $('#over').remove(); alert("Đã gửi mã xác nhận . Vui lòng check mail để lấy lại mật khẩu"); 
+            $('#over').remove(); 
+            alert("Đã gửi mã xác nhận . Vui lòng check mail để lấy lại mật khẩu"); 
         }); 
         return false;
     });
