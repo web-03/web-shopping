@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Users</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/linearicons-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
+<!-- for-mobile-apps -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<meta name="keywords" content="Classy Login form Responsive, Login form web template, Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<!-- //for-mobile-apps -->
+<!--Google Fonts-->
+<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <!-- Header -->
+    <% include headeruser %>
+    <form action="#" method="post">
+    <div class="form-control w3layouts"> 
+        <div>
+            <input type="text" id="firstname" name="firstname" placeholder="Họ và tên" title="Đổi tên" required="">
+        </div>
+
+        <div class="form-control w3layouts">	
+            <input type="email" id="email" name="email" placeholder="mail@example.com" title="Đổi Email" required="">
+        </div>
+
+        <div class="form-control agileinfo">	
+            <input type="password" class="lock" name="password" placeholder="Mật khẩu" id="password1" title="Đổi mật khẩu"required="">
+        </div>	
+        <div class="form-control agileinfo">	
+                <input type="password" class="lock" name="confirm-password" placeholder="Nhập lại mật khẩu" id="password2" title="Nhập lại mật khẩu"required="">
+            </div>	
+        <input type="submit" class="register" value="Đăng kí">
+    </form>
+</div>
+			
+<% include footer %>      
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementById("password1").onchange = validatePassword;
+        document.getElementById("password2").onchange = validatePassword;
+    }
+    function validatePassword(){
+        var pass2=document.getElementById("password2").value;
+        var pass1=document.getElementById("password1").value;
+        if(pass1!=pass2)
+            document.getElementById("password2").setCustomValidity("Mật khẩu không khớp");
+        else
+            document.getElementById("password2").setCustomValidity('');	 
+            //empty string means no validation error
+    }
+</script>
+</body>
