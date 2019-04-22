@@ -899,7 +899,7 @@ a, a:visited, a:active{
                   <span>Điền vào email tài khoản của bạn</span>
                   <input id="email" name="email" value="" type="text" autocomplete="on" placeholder="Email">
                   </label>
-                  <button class="button submit-button" type="button">Xác nhận</button>
+                  <button class="submit-button" type="button">Xác nhận</button>
                  </form>
                  </div>
               </div>
@@ -925,11 +925,11 @@ a, a:visited, a:active{
   <script>
     $(document).ready(function() {
     $('a.forgot-window').click(function() {
-        //lấy giá trị thuộc tính href - chính là phần tử "#login-box"
+        //lấy giá trị thuộc tính href - chính là phần tử "#Forgot-box"
         var ForgotBox = $(this).attr('href');
         //cho hiện hộp đăng nhập trong 300ms
         $(ForgotBox).fadeIn("slow");
-        // thêm phần tử id="over" vào cuối thẻ body
+        // thêm phần tử id="over" vào cuối thẻ forgot1
         $('.forgot1').append('<div id="over"></div>');
         $('#over').fadeIn(300);
         
@@ -942,7 +942,13 @@ a, a:visited, a:active{
         }); 
         return false;
     });
-	
+  //khi click xác nhận
+  $(document).on('click', "submit-button, #over", function() { 
+        $('#over, .forgot').fadeOut(300 , function() {
+            $('#over').remove(); alert("Đã gửi mã xác nhận . Vui lòng check mail để lấy lại mật khẩu"); 
+        }); 
+        return false;
+    });
 });
   </script>
 
