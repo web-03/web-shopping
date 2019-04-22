@@ -943,7 +943,7 @@ a, a:visited, a:active{
         return false;
     });
   //khi click xác nhận
-  $(document).on('click', "submit-button, #over", function() { 
+  $(document).on('click', "button.submit-button, #over", function() { 
         $('#over, .forgot').fadeOut(300 , function() {
             $('#over').remove(); 
             alert("Đã gửi mã xác nhận . Vui lòng check mail để lấy lại mật khẩu"); 
