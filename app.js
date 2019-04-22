@@ -13,7 +13,7 @@ var contactRouter = require('./routes/contact');
 var shoppingCartRouter = require('./routes/shopping-cart');
 var productDetailRouter = require('./routes/product-detail');
 var signupRouter = require('./routes/signup');
-var indexuser=require('./routes/indexuser');
+var indexuserRouter=require('./routes/indexuser');
 var app = express();
 
 // view engine setup
