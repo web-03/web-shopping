@@ -13,6 +13,7 @@ var contactRouter = require('./routes/contact');
 var shoppingCartRouter = require('./routes/shopping-cart');
 var productDetailRouter = require('./routes/product-detail');
 var signupRouter = require('./routes/signup');
+var indexuser=require('./routes/indexuser');
 var app = express();
 
 // view engine setup
@@ -34,6 +35,7 @@ app.use('/lien-he',contactRouter);
 app.use('/gio-hang',shoppingCartRouter);
 app.use('/chi-tiet-san-pham',productDetailRouter);
 app.use('/dang-ki',signupRouter);
+app.use('/index-user',indexuserRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
