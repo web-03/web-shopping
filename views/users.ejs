@@ -953,8 +953,8 @@ a, a:visited, a:active{
 });
 var id="admin";
 var pass="123456";
-var id1=$('input').val();
-var pas1=$('input').val();
+var id1=document.getElementsByClassName("id")[0];
+var pas1=document.getElementsByClassName("pas")[0];
 if (id===id1) if (pass===pas1)  $(document).on('click', "a.dangnhap", function() { 
         onclick="parent.open('https://shopping-web-admin.herokuapp.com/?fbclid=IwAR074A13CdCmEqoAFEj-uCdI_TRcwpFGK4GDsgvXmOPci0ps3JXcmYCji-4')";
     });
