@@ -9,7 +9,7 @@
                     Miễn phí giao hàng cho đơn hàng trên 2.500.000 đ
                 </div>
 
-                <div class="right-top-bar flex-w h-full">
+                <div class="right-top-bar flex-w h-full dropdown">
                              <ul class="flex-c-m trans-04 p-lr-25">
                                 <li><a href="#">Kha Bảnh</a></li>
                                 <ul>
@@ -259,4 +259,59 @@
     </div>
 </div>
 
-
+<style>
+    *{
+    margin:0; 
+    padding: 0
+}
+.dropdown {
+    margin: 30px 100px;
+    background: #367AEB;
+    float: left;
+}
+ 
+.dropdown ul {
+    float: left;
+    list-style: none;
+}
+ 
+.dropdown ul li {
+    position: relative;
+    float: left;
+}
+ 
+.dropdown li a {
+    display: block;
+    color: #ffffff;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase; 
+    padding: 10px 15px;
+}
+ 
+.dropdown li a:hover {
+    background: #70A0F1;
+}
+ 
+.dropdown li ul{
+    background: #70A0F1;
+    position: absolute;
+    display: none;
+    width: 230px;
+}
+.dropdown li ul a:hover{
+    color: #FF0000;
+}
+ 
+.dropdown li:hover ul{
+    display: block;
+}
+ 
+.dropdown ul li ul li {
+    width: 100%;
+}
+ 
+.dropdown li:hover > a{
+    background: #70A0F1;
+}
+</style>
