@@ -958,13 +958,16 @@ var id1=document.getElementsByClassName("id")[0];
 var pas1=document.getElementsByClassName("pas")[0];
 
 
-    if(id1===id) if (pas1===pass) document.getElementById("login").onclick=function(){
+    if(id1===id) {if (pas1===pass) document.getElementById("login").onclick=function(){
         document.getElementById("login").href="https://shopping-web-admin.herokuapp.com/?fbclid=IwAR074A13CdCmEqoAFEj-uCdI_TRcwpFGK4GDsgvXmOPci0ps3JXcmYCji-4";
         return false;
     }
 else document.getElementById("login").onclick=function(){
         document.getElementById("login").href="nguoi-dung";return false;
-}
+}}
+else document.getElementById("login").onclick=function(){
+        document.getElementById("login").href="nguoi-dung";return false;
+};
   </script>
 
 	</body>
