@@ -868,35 +868,7 @@ a, a:visited, a:active{
 }
 /*--meadia quries end here--*/
 </style>
-<script>
-  $(document).ready(function() {
-    var $heightTest = $('body');  
-    document.getElementById("over").style.height = $heightTest.height();
-  $('a.forgot-window').click(function() {
 
-      //lấy giá trị thuộc tính href - chính là phần tử "#login-box"
-      var ForgotBox = $(this).attr('href');
-
-      //cho hiện hộp đăng nhập trong 300ms
-      $(ForgotBox).fadeIn("slow");
-
-      // thêm phần tử id="over" vào cuối thẻ body
-      $('body').append('<div id="over"></div>');
-      $('#over').fadeIn(300);
-      
-      return false;
-  });
-
-  // khi click đóng hộp thoại
-  $(document).on('click', "a.close, #over", function() { 
-      $('#over, .forgot').fadeOut(300 , function() {
-          $('#over').remove();  
-      }); 
-      return false;
-  });
-
-});
-</script>
 </head>
 <body>
 	<!--header start here-->
@@ -953,5 +925,33 @@ a, a:visited, a:active{
   
 
 	</body>
-	
+	<script>
+    $(document).ready(function() {
+      var $heightTest = $('body');  
+      document.getElementById("over").style.height = $heightTest.height();
+    $('a.forgot-window').click(function() {
+  
+        //lấy giá trị thuộc tính href - chính là phần tử "#login-box"
+        var ForgotBox = $(this).attr('href');
+  
+        //cho hiện hộp đăng nhập trong 300ms
+        $(ForgotBox).fadeIn("slow");
+  
+        // thêm phần tử id="over" vào cuối thẻ body
+        $('body').append('<div id="over"></div>');
+        $('#over').fadeIn(300);
+        
+        return false;
+    });
+  
+    // khi click đóng hộp thoại
+    $(document).on('click', "a.close, #over", function() { 
+        $('#over, .forgot').fadeOut(300 , function() {
+            $('#over').remove();  
+        }); 
+        return false;
+    });
+  
+  });
+  </script>
 	</html>
