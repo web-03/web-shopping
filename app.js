@@ -35,7 +35,7 @@ app.use('/lien-he',contactRouter);
 app.use('/gio-hang',shoppingCartRouter);
 app.use('/chi-tiet-san-pham',productDetailRouter);
 app.use('/dang-ki',signupRouter);
-app.use('/index-user',indexuserRouter);
+app.use('/nguoi-dung',indexuserRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
