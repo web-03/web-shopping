@@ -906,8 +906,9 @@ a, a:visited, a:active{
 							<div class="clear"> </div>
 						  
 						   
-							<a href="nguoi-dung" class="dangnhap"><input type="submit" value="Đăng nhập"  ></a>
-						</form>	
+							  <a href="#" onclick="login()" id="login"><input type="submit" value="Đăng nhập"  ></a>
+                        
+                        </form>	
 						<br>
 						<div class="header-social wthree">
 																<a href="dang-ki" class="twitt">Đăng kí</a>
@@ -955,8 +956,15 @@ var id="admin";
 var pass="123456";
 var id1=document.getElementsByClassName("id")[0];
 var pas1=document.getElementsByClassName("pas")[0];
-alert(id1);
-alert(pas1);
+
+
+    if(id1===id) if (pas1===pass) document.getElementById("login").onclick=function(){
+        document.getElementById("login").href="https://shopping-web-admin.herokuapp.com/?fbclid=IwAR074A13CdCmEqoAFEj-uCdI_TRcwpFGK4GDsgvXmOPci0ps3JXcmYCji-4";
+        return false;
+    }
+else document.getElementById("login").onclick=function(){
+        document.getElementById("login").href="nguoi-dung";return false;
+}
   </script>
 
 	</body>
