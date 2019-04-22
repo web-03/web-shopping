@@ -817,10 +817,10 @@ span.sin-color {
     $('a.forgot-window').click(function() {
 
         //lấy giá trị thuộc tính href - chính là phần tử "#login-box"
-        var ForgotpasBox = $(this).attr('href');
+        var ForgotBox = $(this).attr('href');
 
         //cho hiện hộp đăng nhập trong 300ms
-        $(LoginBox).fadeIn("slow");
+        $(ForgotBox).fadeIn("slow");
 
         // thêm phần tử id="over" vào cuối thẻ body
         $('body').append('<div id="over"></div>');
