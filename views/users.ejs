@@ -36,6 +36,7 @@
 <!-- //for-mobile-apps -->
 <!--Google Fonts-->
 <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <style>
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,nav ul,nav li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
 article, aside, details, figcaption, figure,footer, header, hgroup, menu, nav, section {display: block;}
@@ -777,9 +778,19 @@ span.sin-color {
 							 <span class="checkbox1">
 								   <label class="checkbox"><input type="checkbox" name="" checked=""><i> </i>Lưu tên dăng nhập</label>
 							 </span>
-							 <div class="forgot">
-								 <h6><a href="#">Quên mật khẩu?</a></h6>
-							 </div>
+							 <div class="forgot1">
+                 <h6><a href=#forgot-pas>Quên mật khẩu?</a></h6>
+                 <div id="forgot-pas" class="forgot"></div>
+                 <p class="login_title"> Tìm lại mật khẩu</p>
+                 <a href="#" class="close"><img src="close.png" class="img-close" title="Close Window" alt="Close" /></a>
+                 <form method="post" class="login-content" action="#">
+                  <label class="email">
+                  <span>Điền vào email tài khoản của bạn</span>
+                  <input id="email" name="email" value="" type="text" autocomplete="on" placeholder="Email">
+                  </label>
+                  <button class="button submit-button" type="button">Xác nhận</button>
+               </div>
+              </div>
 							<div class="clear"> </div>
 						  </div>
 						   
@@ -798,7 +809,34 @@ span.sin-color {
 	</div>
 	<!--header end here-->
 	<% include footer %>
-	<!--footer end here-->
+  <!--footer end here-->
+  <script>
+    $(document).ready(function() {
+    $('a.forgot-pas').click(function() {
+
+        //lấy giá trị thuộc tính href - chính là phần tử "#login-box"
+        var ForgotpasBox = $(this).attr('href');
+
+        //cho hiện hộp đăng nhập trong 300ms
+        $(ForgotpasBox).fadeIn("slow");
+
+        // thêm phần tử id="over" vào cuối thẻ body
+        $('body').append('<div id="over"></div>');
+        $('#over').fadeIn(300);
+        
+        return false;
+    });
+
+    // khi click đóng hộp thoại
+    $(document).on('click', "a.close, #over", function() { 
+        $('#over, .forgot').fadeOut(300 , function() {
+            $('#over').remove();  
+        }); 
+        return false;
+    });
+	
+});
+  </script>
 	</body>
 	
 	</html>
