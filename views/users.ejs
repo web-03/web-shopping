@@ -930,7 +930,7 @@ a, a:visited, a:active{
       var heightTest = $('body');  
       var s =heightTest[0].scrollHeight;
       var b=heightTest.scrollHeight;
-      document.getElementById("over").style.height = s;
+      document.getElementById("over").style.height = s.valueOf();
     $('a.forgot-window').click(function() {
   
         //lấy giá trị thuộc tính href - chính là phần tử "#login-box"
