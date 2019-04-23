@@ -15,7 +15,7 @@ var productDetailRouter = require('./routes/product-detail');
 var signupRouter = require('./routes/signup');
 var indexuserRouter=require('./routes/indexuser');
 var updateInfUserRouter=require('./routes/updateInfUser');
-var historyorderRouter=require('./routes/history-order');
+var historyorderRouter=require('./routes/historyorder');
 var app = express();
 
 // view engine setup
