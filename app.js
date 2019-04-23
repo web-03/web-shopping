@@ -15,6 +15,7 @@ var productDetailRouter = require('./routes/product-detail');
 var signupRouter = require('./routes/signup');
 var indexuserRouter=require('./routes/indexuser');
 var updateInfUserRouter=require('./routes/updateInfUser');
+var historyorderRouter=require('./routes/history-order');
 var app = express();
 
 // view engine setup
@@ -38,6 +39,7 @@ app.use('/chi-tiet-san-pham',productDetailRouter);
 app.use('/dang-ki',signupRouter);
 app.use('/nguoi-dung',indexuserRouter);
 app.use('/cap-nhat-thong-tin',updateInfUserRouter);
+app.use('/history-order',historyorderRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
