@@ -774,7 +774,7 @@ a, a:visited, a:active{
 /* lớp login - cửa sổ đăng nhập*/
 .forgot
 {
-    background-color:darkgray;
+    background-color:rgb(136, 201, 255);
     height:auto;
     width:450px;
     font-family:Verdana, Arial, Helvetica, sans-serif;
@@ -784,10 +784,9 @@ a, a:visited, a:active{
     overflow:hidden;
     position:absolute;
     z-index:99999;/*đặt z-index để nó nổi bật và chồng lên phần tử khác trong trang*/
-    top:50%;
-    left:56%;
+    top:10%;
+    left:50%;
     margin-left:-300px;
-    
 }
 		
 .forgot .forgot_title
@@ -871,9 +870,9 @@ a, a:visited, a:active{
 </style>
 
 </head>
-<body > 
+<body>
 	<!--header start here-->
-	<% include header %>
+	<% include ./../elements/header %>
 	<div class="header">
 			<div class="header-main">
 				   
@@ -907,7 +906,7 @@ a, a:visited, a:active{
 							<div class="clear"> </div>
 						  
 						   
-							  <a href="nguoi-dung" onclick="login()" id="login"><input type="submit" value="Đăng nhập"  ></a>
+							  <a href="#" onclick="login()" id="login"><input type="submit" value="Đăng nhập"  ></a>
                         
                         </form>	
 						<br>
@@ -922,7 +921,7 @@ a, a:visited, a:active{
 			</div>
 	</div>
 	<!--header end here-->
-	<% include footer %>
+	<% include ./../elements/footer %>
   <!--footer end here-->
   <script>
     $(document).ready(function() {
@@ -953,7 +952,7 @@ a, a:visited, a:active{
         return false;
     });
 });
-/*var id="admin";
+var id="admin";
 var pass="123456";
 var id1=document.getElementsByClassName("id")[0];
 var pas1=document.getElementsByClassName("pas")[0];
@@ -968,7 +967,7 @@ else document.getElementById("login").onclick=function(){
 }}
 else document.getElementById("login").onclick=function(){
         document.getElementById("login").href="nguoi-dung";return false;
-};*/
+};
   </script>
 
 	</body>
