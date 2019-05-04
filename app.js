@@ -5,17 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var aboutRouter = require('./routes/about');
-var blogRouter = require('./routes/blog');
-var productRouter = require('./routes/product');
-var contactRouter = require('./routes/contact');
-var shoppingCartRouter = require('./routes/shopping-cart');
-var productDetailRouter = require('./routes/product-detail');
-var signupRouter = require('./routes/signup');
-var indexuserRouter=require('./routes/indexuser');
-var updateInfUserRouter=require('./routes/updateInfUser');
-var historyorderRouter=require('./routes/historyorder');
+
 var app = express();
 
 // view engine setup
@@ -29,17 +19,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/tai-khoan', usersRouter);
-app.use('/gioi-thieu',aboutRouter);
-app.use('/bai-viet',blogRouter);
-app.use('/san-pham',productRouter);
-app.use('/lien-he',contactRouter);
-app.use('/gio-hang',shoppingCartRouter);
-app.use('/chi-tiet-san-pham',productDetailRouter);
-app.use('/dang-ki',signupRouter);
-app.use('/nguoi-dung',indexuserRouter);
-app.use('/cap-nhat-thong-tin',updateInfUserRouter);
-app.use('/history-order',historyorderRouter);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
