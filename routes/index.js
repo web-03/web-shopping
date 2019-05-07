@@ -22,6 +22,7 @@ router.get('/dang-ki',signupController.getIndex);
 router.get('/gioi-thieu',aboutController.getIndex);
 router.get('/bai-viet',blogController.getIndex);
 router.get('/san-pham',productController.getIndex);
+router.get('/chi-tiet-san-pham/:id', productDetailController.getIndex);
 router.get('/lien-he',contactController.getIndex);
 router.get('/gio-hang',shoppingCartController.getIndex);
 router.get('/chi-tiet-san-pham',productDetailController.getIndex);
