@@ -1,10 +1,66 @@
 var express = require('express');
+var con = require('./../config/key');
 var router = express.Router();
 
+
+var customer = function(id, name, account, phoneNumber, place, status){
+  this.id = id;
+  this.name = name;
+  this.account = account;
+  this.phoneNumber = phoneNumber;
+  this.place = place;
+  this.status = status;
+}
 /* GET home page. */
 router.user = (req, res, next) => {
   res.render('user/users')
 };
+var abc = [];
+router.signup = (req,res,next)=>{
+  
+  let name = req.body.name;
+  let account = req.body.account;
+  let phoneNumber = req.body.phoneNumber;
+  let address = req.body.address;
+  let password = req.body.password;
+    let sql='INSERT INTO customers(name, phoneNumber, place,account,password,status) VALUES ("'+name+'","'+phoneNumber+'","'+address+'","'+account+'","'+password+'",1)';
+    con.query(sql);
+  res.redirect('/tai-khoan');
+  
+}
+router.signin = (req,res,next)=>{
+  
+  let account = req.body.account;
+  let password = req.body.password;
+  console.log(account);
+  console.log(password);
 
+  let flag=0;
+  con.query('select * from customers WHERE account="'+account+'" AND password="'+password+'"', function (err, rows, fields) {
+    if (err) throw err
+    
+    rows.forEach(element => {
+      var x = new customer(element.id, element.name, element.account, element.phoneNumber, element.place, element.status);
+      abc.push(x);
+      if (abc.length == 1){
+        flag = 1;
+      }
+      
+    
+    })
+    
+    if (flag == 1){
+      res.redirect('/');
+    }
+    else{
+    res.redirect('/tai-khoan');
+    }
+  });
+  
+ 
+}
+function functionName() {
+  
+} 
 
 module.exports = router;

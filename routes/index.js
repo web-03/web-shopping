@@ -8,6 +8,7 @@ var contactController = require('../controller/contact');
 var shoppingCartController = require('../controller/shopping-cart');
 var productDetailController = require('../controller/product-detail');
 var signupController = require('../controller/signup');
+var test = require('../controller/categories');
 // var indexuserController=require('../controller/indexuser');
 // var updateInfUserController=require('../controller/updateInfUser');
 // var historyorderController=require('../controller/historyorder');
@@ -15,13 +16,17 @@ var signupController = require('../controller/signup');
 
 
 router.get('/tai-khoan',usersController.user);
+router.post('/tai-khoan/dang-ki',usersController.signup);
+router.post('/tai-khoan/dang-nhap',usersController.signin);
+router.get('/dang-ki',signupController.getIndex);
 router.get('/gioi-thieu',aboutController.getIndex);
 router.get('/bai-viet',blogController.getIndex);
 router.get('/san-pham',productController.getIndex);
 router.get('/lien-he',contactController.getIndex);
 router.get('/gio-hang',shoppingCartController.getIndex);
 router.get('/chi-tiet-san-pham',productDetailController.getIndex);
-router.get('/dang-ki',signupController.getIndex);
+router.get('/test',test.list);
+
 // router.get('/nguoi-dung',indexuserController.getIndex);
 // router.get('/cap-nhat-thong-tin',updateInfUserController.getIndex);
 // router.get('/history-order',historyorderController.getIndex);
