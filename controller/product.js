@@ -28,8 +28,18 @@ router.getIndex = (req, res, next) => {
     })
     res.render('product/product',{products : productsAll});
   });
-  
+};
 
+router.getDetail = (req, res, next) => {
+  let id = req.params.id;
+  let sql = 'select * from products where id = '+ id;
+  console.log(sql);
+  con.query(sql, function(err, results, fields){
+    console.log(results[0]);
+    var x = new product(results[0].id, results[0].name, results[0].price,results[0].quantity, results[0].detail,results[0].id_category,results[0].image, results[0].status);
+    res.render('product/product-detail',{product : x});
+    
+  });
 };
 
 module.exports = router;
