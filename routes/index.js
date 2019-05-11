@@ -9,6 +9,7 @@ var shoppingCartController = require('../controller/shopping-cart');
 var productDetailController = require('../controller/product-detail');
 var signupController = require('../controller/signup');
 var test = require('../controller/categories');
+var homeController = require('../controller/home');
 // var indexuserController=require('../controller/indexuser');
 // var updateInfUserController=require('../controller/updateInfUser');
 // var historyorderController=require('../controller/historyorder');
@@ -27,13 +28,14 @@ router.get('/lien-he',contactController.getIndex);
 router.get('/gio-hang',shoppingCartController.getIndex);
 router.get('/chi-tiet-san-pham',productDetailController.getIndex);
 router.get('/test',test.list);
+router.get('/',homeController.getIndex);
 
 // router.get('/nguoi-dung',indexuserController.getIndex);
 // router.get('/cap-nhat-thong-tin',updateInfUserController.getIndex);
 // router.get('/history-order',historyorderController.getIndex);
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('home/index', { title: 'Express' });
-});
+// router.get('/', function(req, res, next) {
+//   res.render('home/index', { title: 'Express' });
+// });
 
 module.exports = router;
