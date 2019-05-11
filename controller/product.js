@@ -14,7 +14,22 @@ var product = function(id, name,price,quantity, description, categoryId,image, s
 }
 var productsAll = [];
 
+var category = function(id, name, status, description){
+  this.id = id;
+  this.name = name;
+  this.status = status;
+  this.description = description;
+}
+var categoriesAll = [];
 
+con.query('select * from categories', function (err, rows, fields) {
+  if (err) throw err
+
+  rows.forEach(element => {
+    var x = new category(element.id, element.name, element.status, element.description);
+    categoriesAll.push(x);
+  })
+});
 
 /* GET home page. */
 router.getIndex = (req, res, next) => {
@@ -26,10 +41,20 @@ router.getIndex = (req, res, next) => {
       var x = new product(element.id, element.name, element.price,element.quantity, element.detail,element.id_category,element.image, element.status);
       productsAll.push(x);
     })
-    res.render('product/product',{products : productsAll});
+    res.render('product/product',{products : productsAll, categories : categoriesAll});
   });
-  
+};
 
+router.getDetail = (req, res, next) => {
+  let id = req.params.id;
+  let sql = 'select * from products where id = '+ id;
+  console.log(sql);
+  con.query(sql, function(err, results, fields){
+    console.log(results[0]);
+    var x = new product(results[0].id, results[0].name, results[0].price,results[0].quantity, results[0].detail,results[0].id_category,results[0].image, results[0].status);
+    res.render('product/product-detail',{product : x});
+    
+  });
 };
 
 module.exports = router;
