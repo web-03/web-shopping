@@ -22,7 +22,7 @@ var category = function(id, name, status, description){
 }
 var categoriesAll = [];
 
-con.query('select * from categories', function (err, rows, fields) {
+con.query('select * from categories WHERE status = 1', function (err, rows, fields) {
   if (err) throw err
 
   rows.forEach(element => {
@@ -34,15 +34,45 @@ con.query('select * from categories', function (err, rows, fields) {
 /* GET home page. */
 router.getIndex = (req, res, next) => {
   productsAll = [];
-  con.query('select * from products', function (err, rows, fields) {
-    if (err) throw err
+  var from = req.query.from;
+  var to = req.query.to;
+  console.log(from);
+  console.log(to);
   
-    rows.forEach(element => {
-      var x = new product(element.id, element.name, element.price,element.quantity, element.detail,element.id_category,element.image, element.status);
-      productsAll.push(x);
-    })
-    res.render('product/product',{products : productsAll, categories : categoriesAll});
-  });
+  if (from == undefined && to == undefined){
+    con.query('select * from products WHERE status = 1', function (err, rows, fields) {
+      if (err) throw err
+    
+      rows.forEach(element => {
+        var x = new product(element.id, element.name, element.price,element.quantity, element.detail,element.id_category,element.image, element.status);
+        productsAll.push(x);
+      })
+      res.render('product/product',{products : productsAll, categories : categoriesAll});
+    });
+  }
+  else if (from == undefined ){
+    con.query('select * from products WHERE status = 1 and price > '+to , function (err, rows, fields) {
+      if (err) throw err
+    
+      rows.forEach(element => {
+        var x = new product(element.id, element.name, element.price,element.quantity, element.detail,element.id_category,element.image, element.status);
+        productsAll.push(x);
+      })
+      res.render('product/product',{products : productsAll, categories : categoriesAll});
+    });
+  }
+  else {
+    con.query('select * from products WHERE status = 1 and price >  '+from+' and price < '+to, function (err, rows, fields) {
+      if (err) throw err
+    
+      rows.forEach(element => {
+        var x = new product(element.id, element.name, element.price,element.quantity, element.detail,element.id_category,element.image, element.status);
+        productsAll.push(x);
+      })
+      res.render('product/product',{products : productsAll, categories : categoriesAll});
+    });
+  }
+  
 };
 
 router.getDetail = (req, res, next) => {
