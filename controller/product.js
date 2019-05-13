@@ -31,7 +31,7 @@ con.query('select * from categories WHERE status = 1', function (err, rows, fiel
   })
 });
 
-/* GET home page. */
+/* GET home page. and get all product */
 router.getIndex = (req, res, next) => {
   productsAll = [];
   var from = req.query.from;
@@ -74,7 +74,7 @@ router.getIndex = (req, res, next) => {
   }
   
 };
-
+//get detail product
 router.getDetail = (req, res, next) => {
   let id = req.params.id;
   let sql = 'select * from products where id = '+ id;
