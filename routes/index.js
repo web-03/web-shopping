@@ -19,6 +19,8 @@ var homeController = require('../controller/home');
 router.get('/tai-khoan',usersController.user);
 router.post('/tai-khoan/dang-ki',usersController.signup);
 router.post('/tai-khoan/dang-nhap',usersController.signin);
+router.post('/tai-khoan/check-account',usersController.check);
+router.post('/tai-khoan/check-phone',usersController.checkPhone);
 router.get('/dang-ki',signupController.getIndex);
 router.get('/gioi-thieu',aboutController.getIndex);
 router.get('/bai-viet',blogController.getIndex);

@@ -3,7 +3,7 @@ var con = require('./../config/key');
 var router = express.Router();
 
 
-var customer = function(id, name, account, phoneNumber, place, status){
+var customer = function (id, name, account, phoneNumber, place, status) {
   this.id = id;
   this.name = name;
   this.account = account;
@@ -16,51 +16,96 @@ router.user = (req, res, next) => {
   res.render('user/users')
 };
 var abc = [];
-router.signup = (req,res,next)=>{
-  
+router.signup = (req, res, next) => {
+
   let name = req.body.name;
   let account = req.body.account;
   let phoneNumber = req.body.phoneNumber;
   let address = req.body.address;
   let password = req.body.password;
-    let sql='INSERT INTO customers(name, phoneNumber, place,account,password,status) VALUES ("'+name+'","'+phoneNumber+'","'+address+'","'+account+'","'+password+'",1)';
-    con.query(sql);
+  let sql = 'INSERT INTO customers(name, phoneNumber, place,account,password,status) VALUES ("' + name + '","' + phoneNumber + '","' + address + '","' + account + '","' + password + '",1)';
+  con.query(sql);
   res.redirect('/tai-khoan');
-  
+
 }
-router.signin = (req,res,next)=>{
-  
+router.signin = (req, res, next) => {
+
   let account = req.body.account;
   let password = req.body.password;
   console.log(account);
   console.log(password);
 
-  let flag=0;
-  con.query('select * from customers WHERE account="'+account+'" AND password="'+password+'"', function (err, rows, fields) {
+  let flag = 0;
+  con.query('select * from customers WHERE account="' + account + '" AND password="' + password + '"', function (err, rows, fields) {
     if (err) throw err
-    
+
     rows.forEach(element => {
       var x = new customer(element.id, element.name, element.account, element.phoneNumber, element.place, element.status);
       abc.push(x);
-      if (abc.length == 1){
+      if (abc.length == 1) {
         flag = 1;
       }
-      
-    
+
+
     })
-    
-    if (flag == 1){
+
+    if (flag == 1) {
       res.redirect('/');
     }
-    else{
-    res.redirect('/tai-khoan');
+    else {
+      res.redirect('/tai-khoan');
     }
   });
-  
- 
 }
-function functionName() {
-  
-} 
+
+router.check = (req, res) => {
+  let account = req.body.data;
+  if (account == undefined || account == "") {
+    res.send("3");
+  } else {
+
+    con.query('select * from customers WHERE account="' + account + '"', function (err, rows, fields) {
+      if (err) throw err
+      let list = [];
+      rows.forEach(element => {
+        var x = new customer(element.id, element.name, element.account, element.phoneNumber, element.place, element.status);
+        list.push(x);
+
+      });
+      console.log(list.length);
+      if (list.length >= 1) {
+        res.send("0");
+      }
+      else {
+        res.send("1");
+      }
+    });
+  }
+}
+
+router.checkPhone = (req, res) => {
+  let phoneNumber = req.body.data;
+  if (phoneNumber == undefined || phoneNumber == "") {
+    res.send("3");
+  } else {
+
+    con.query('select * from customers WHERE phoneNumber="' + phoneNumber + '"', function (err, rows, fields) {
+      if (err) throw err
+      let list = [];
+      rows.forEach(element => {
+        var x = new customer(element.id, element.name, element.account, element.phoneNumber, element.place, element.status);
+        list.push(x);
+
+      });
+      console.log(list.length);
+      if (list.length >= 1) {
+        res.send("0");
+      }
+      else {
+        res.send("1");
+      }
+    });
+  }
+}
 
 module.exports = router;
