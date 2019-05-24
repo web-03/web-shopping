@@ -667,6 +667,7 @@
 				<div class="form-control agileinfo">
 					<input type="password" class="lock" name="confirm-password" placeholder="Nhập lại mật khẩu"
 						id="password2" title="Nhập lại mật khẩu" required="">
+					<span class="text-danger" id="errpassword" style="display:none;">Hai mật khẩu không trùng nhau!</span>
 				</div>
 
 				<input type="submit" class="register" value="Đăng kí">
@@ -699,6 +700,17 @@
 	<% include ./../elements/footer %>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script>
+
+		$("#password2").mouseout(function(){
+			let a = $("#password1").val();
+			let b = $("#password2").val();
+			if(a != b){
+				$('#errpassword').attr("style", "");
+			}
+			else{
+				$('#errpassword').attr("style", "display:none;");
+			}
+		});
 
 		function checkAccount() {
 			var accountCurrent = document.getElementById("account").value;
