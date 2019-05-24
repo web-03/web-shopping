@@ -74,6 +74,36 @@ router.getIndex = (req, res, next) => {
   }
   
 };
+
+router.getSearch = (req, res, next) => {
+  productsAll = [];
+  let name = req.query.name;
+  console.log(name);
+  
+  if (name == undefined){
+    con.query('select * from products WHERE status = 1', function (err, rows, fields) {
+      if (err) throw err
+    
+      rows.forEach(element => {
+        var x = new product(element.id, element.name, element.price,element.quantity, element.detail,element.id_category,element.image, element.status);
+        productsAll.push(x);
+      })
+      res.render('product/product',{products : productsAll, categories : categoriesAll});
+    });
+  }
+  else{
+    con.query('select * from products WHERE status = 1 and lower(name) like lower("%'+name+'%")' , function (err, rows, fields) {
+      if (err) throw err
+    
+      rows.forEach(element => {
+        var x = new product(element.id, element.name, element.price,element.quantity, element.detail,element.id_category,element.image, element.status);
+        productsAll.push(x);
+      })
+      res.render('product/product',{products : productsAll, categories : categoriesAll});
+    });
+  }
+  
+};
 //get detail product
 router.getDetail = (req, res, next) => {
   let id = req.params.id;
