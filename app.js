@@ -5,7 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 const session = require("express-session");
 const    bodyParser = require("body-parser");
 require('./config/passport')(passport); // pass passport for configuration

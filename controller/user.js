@@ -20,6 +20,7 @@ router.user = (req, res, next) => {
 // } else {
 //     res.render('user/users', { message: req.flash('loginMessage') });
 // }
+
   res.render('user/users',{ message: req.flash('loginMessage') })
 };
 var abc = [];
@@ -27,11 +28,7 @@ var abc = [];
 //signup connect with link: 
 router.signup = (req,res,next)=>{
   
-  let name = req.body.name;
-  let account = req.body.account;
-  let phoneNumber = req.body.phoneNumber;
-  let address = req.body.address;
-  let password = req.body.password;
+  
 
   passport.authenticate('local-signup',{
     successRedirect: '/tai-khoan',
