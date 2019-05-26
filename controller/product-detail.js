@@ -26,7 +26,7 @@ router.getIndex = (req, res, next) => {
       var x = new product(element.id, element.name, element.price,element.quantity, element.detail,element.id_category,element.image, element.status);
       productsAll.push(x);
     })
-    res.render('product/product-detail');
+    res.render('product/product-detail',{user: req.user});
   });
   
 };

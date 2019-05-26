@@ -24,7 +24,7 @@ con.query('select * from categories', function (err, rows, fields) {
 router.list = (req, res, next) => {
   let categories = [];
   categories = categoriesAll;
-  res.render('category/index',{categories : categories});
+  res.render('category/index',{categories : categories,user: req.user});
 };
 
 router.create = (req, res, next) => {

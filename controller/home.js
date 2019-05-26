@@ -40,7 +40,9 @@ con.query('select * from products', function (err, rows, fields) {
 });
 /* GET home page. */
 router.getIndex = (req, res, next) => {
-  res.render('home/index',{products : productsAll,categories : categoriesAll});
+  console.log(req.user);
+ 
+  res.render('home/index',{products : productsAll,categories : categoriesAll,user: req.user});
 };
 
 module.exports = router;

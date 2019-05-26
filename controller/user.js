@@ -21,7 +21,7 @@ router.user = (req, res, next) => {
 //     res.render('user/users', { message: req.flash('loginMessage') });
 // }
 
-  res.render('user/users',{ message: req.flash('loginMessage') })
+  res.render('user/users',{ message: req.flash('loginMessage') ,user: req.user})
 };
 var abc = [];
 
@@ -155,5 +155,12 @@ router.checkPhone = (req, res) => {
       }
     });
   }
+
+}
+
+router.logout=(req,res,next)=>
+{
+  req.logout();
+  res.redirect('/');
 }
 module.exports = router;

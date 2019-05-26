@@ -47,7 +47,7 @@ router.getIndex = (req, res, next) => {
         var x = new product(element.id, element.name, element.price,element.quantity, element.detail,element.id_category,element.image, element.status);
         productsAll.push(x);
       })
-      res.render('product/product',{products : productsAll, categories : categoriesAll});
+      res.render('product/product',{products : productsAll, categories : categoriesAll,user: req.user});
     });
   }
   else if (from == undefined ){
@@ -58,7 +58,7 @@ router.getIndex = (req, res, next) => {
         var x = new product(element.id, element.name, element.price,element.quantity, element.detail,element.id_category,element.image, element.status);
         productsAll.push(x);
       })
-      res.render('product/product',{products : productsAll, categories : categoriesAll});
+      res.render('product/product',{products : productsAll, categories : categoriesAll,user: req.user});
     });
   }
   else {
@@ -69,7 +69,7 @@ router.getIndex = (req, res, next) => {
         var x = new product(element.id, element.name, element.price,element.quantity, element.detail,element.id_category,element.image, element.status);
         productsAll.push(x);
       })
-      res.render('product/product',{products : productsAll, categories : categoriesAll});
+      res.render('product/product',{products : productsAll, categories : categoriesAll,user: req.user});
     });
   }
   
@@ -88,7 +88,7 @@ router.getSearch = (req, res, next) => {
         var x = new product(element.id, element.name, element.price,element.quantity, element.detail,element.id_category,element.image, element.status);
         productsAll.push(x);
       })
-      res.render('product/product',{products : productsAll, categories : categoriesAll});
+      res.render('product/product',{products : productsAll, categories : categoriesAll,user: req.user});
     });
   }
   else{
@@ -99,7 +99,7 @@ router.getSearch = (req, res, next) => {
         var x = new product(element.id, element.name, element.price,element.quantity, element.detail,element.id_category,element.image, element.status);
         productsAll.push(x);
       })
-      res.render('product/product',{products : productsAll, categories : categoriesAll});
+      res.render('product/product',{products : productsAll, categories : categoriesAll,user: req.user});
     });
   }
   
