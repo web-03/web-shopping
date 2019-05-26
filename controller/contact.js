@@ -5,7 +5,7 @@ var router = express.Router();
 /* GET home page. */
 router.getIndex = (req, res, next) => {
  
-  res.render('contact/contact');
+  res.render('contact/contact',{user: req.user});
 };
 
 
