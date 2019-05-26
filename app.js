@@ -4,7 +4,13 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const session = require("express-session");
+const    bodyParser = require("body-parser");
+require('./config/passport')(passport); // pass passport for configuration
 var indexRouter = require('./routes/index');
+var flash    = require('connect-flash');
 
 var app = express();
 
@@ -18,6 +24,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(__dirname + '../public'));
+
+
+app.use(flash()); // use connect-flash for flash messages stored in session
+app.use(express.static("public"));
+app.use(session({ secret: "cats" }));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', indexRouter);
 
@@ -36,5 +50,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+//passport config
+
 
 module.exports = app;

@@ -1181,14 +1181,18 @@
 <body>
     <!--header start here-->
     <% include ./../elements/header %>
+
+    
     <div class="header">
         <div class="header-main">
 
             <div class="header-bottom">
                 <div class="header-right w3agile">
-
+                   
                     <div class="header-left-bottom agileinfo">
-
+                        <% if (message.length > 0) { %>
+                            <div class="alert alert-danger"><%= message %></div>
+                        <% } %>
                         <form action="/tai-khoan/dang-nhap" method="POST">
                             <input class="id" type="text" value="Tên đăng nhập" name="account" onfocus="this.value = '';"
                                 onblur="if (this.value == '') {this.value = 'User name';}" />

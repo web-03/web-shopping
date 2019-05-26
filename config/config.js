@@ -8,7 +8,7 @@ let config = {
   //   host    : 'localhost',
   //   user    : 'root',
   //   password: 'root',
-  //   database: 'web03'
+  //   database: 'web003'
   // };
    
   module.exports = config;

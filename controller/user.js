@@ -1,9 +1,11 @@
 var express = require('express');
 var con = require('./../config/key');
+
+var passport = require('passport'); // pass passport for configuration
 var router = express.Router();
 
 
-var customer = function (id, name, account, phoneNumber, place, status) {
+var customer = function(id, name, account, phoneNumber, place, status){
   this.id = id;
   this.name = name;
   this.account = account;
@@ -13,51 +15,101 @@ var customer = function (id, name, account, phoneNumber, place, status) {
 }
 /* GET home page. */
 router.user = (req, res, next) => {
-  res.render('user/users')
+//   if(req.isAuthenticated()) {
+//     res.redirect('/');
+// } else {
+//     res.render('user/users', { message: req.flash('loginMessage') });
+// }
+  res.render('user/users',{ message: req.flash('loginMessage') })
 };
 var abc = [];
-router.signup = (req, res, next) => {
 
+//signup connect with link: 
+router.signup = (req,res,next)=>{
+  
   let name = req.body.name;
   let account = req.body.account;
   let phoneNumber = req.body.phoneNumber;
   let address = req.body.address;
   let password = req.body.password;
-  let sql = 'INSERT INTO customers(name, phoneNumber, place,account,password,status) VALUES ("' + name + '","' + phoneNumber + '","' + address + '","' + account + '","' + password + '",1)';
-  con.query(sql);
-  res.redirect('/tai-khoan');
 
+  passport.authenticate('local-signup',{
+    successRedirect: '/tai-khoan',
+    failureRedirect: '/dang-ki',
+    failureFlash: true
+  },function (err,user,info){
+    if(err) {
+      req.flash('loginMessage', err.message)
+      return res.redirect('/dang-ki');
+    }
+
+    if(!user) {
+      req.flash('loginMessage', 'Tài khoản hoặc mật khẩu không chính xác')
+    
+      return res.redirect('/dang-ki');
+    }
+
+    return req.logIn(user, function(err) {
+        if(err) {
+          req.flash('loginMessage', 'Tài khoản hoặc mật khẩu không chính xác')
+    
+          return res.redirect('/dang-ki');
+          
+        } else {
+            return res.redirect('/tai-khoan');
+        }
+    });
+  })(req, res, next);
+  //   let sql='INSERT INTO customers(name, phoneNumber, place,account,password,status) VALUES ("'+name+'","'+phoneNumber+'","'+address+'","'+account+'","'+password+'",1)';
+  //   con.query(sql);
+  // res.redirect('/tai-khoan');
+  
 }
-router.signin = (req, res, next) => {
 
+
+//login connect with link /tai-khoan/dang-nhap
+router.signin = (req,res,next)=>{
+  
   let account = req.body.account;
   let password = req.body.password;
   console.log(account);
   console.log(password);
 
-  let flag = 0;
-  con.query('select * from customers WHERE account="' + account + '" AND password="' + password + '"', function (err, rows, fields) {
-    if (err) throw err
-
-    rows.forEach(element => {
-      var x = new customer(element.id, element.name, element.account, element.phoneNumber, element.place, element.status);
-      abc.push(x);
-      if (abc.length == 1) {
-        flag = 1;
-      }
-
-
-    })
-
-    if (flag == 1) {
-      res.redirect('/');
+  passport.authenticate('local-login',{
+    successRedirect: '/',
+    failureRedirect: '/tai-khoan',
+    failureFlash: true
+  },function(err, user, info) {
+    
+    
+    if(err) {
+      req.flash('loginMessage', err.message)
+      return res.redirect('/tai-khoan');
     }
-    else {
-      res.redirect('/tai-khoan');
+
+    if(!user) {
+      req.flash('loginMessage', 'Tài khoản hoặc mật khẩu không chính xác')
+    
+      return res.redirect('/tai-khoan');
     }
-  });
+
+    return req.logIn(user, function(err) {
+        if(err) {
+          req.flash('loginMessage', 'Tài khoản hoặc mật khẩu không chính xác')
+    
+          return res.redirect('/tai-khoan');
+          
+        } else {
+            return res.redirect('/');
+        }
+    });
+})(req, res, next);
+  
+ 
 }
-
+function functionName() {
+  
+} 
 router.check = (req, res) => {
   let account = req.body.data;
   if (account == undefined || account == "") {
@@ -107,5 +159,4 @@ router.checkPhone = (req, res) => {
     });
   }
 }
-
 module.exports = router;
