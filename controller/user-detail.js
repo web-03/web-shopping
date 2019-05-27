@@ -1,0 +1,41 @@
+var express = require('express');
+var router = express.Router();
+var con = require('./../config/key');
+var customer = function(id, name, phoneNumber, place,account,password, status){
+    this.id = id;
+    this.name = name;
+    this.account = account;
+    this.phoneNumber = phoneNumber;
+    this.place = place;
+    this.status = status;
+    this.password=password;
+  }
+  var customersAll = [];
+  con.query('select * from customers WHERE status = 1', function (err, rows, fields) {
+    if (err) throw err
+  
+    rows.forEach(element => {
+      var x = new customer(element.id, element.name,  element.phoneNumber,element.place,element.account,element.password,element.status);
+      customersAll.push(x);
+    })
+  });
+  /* GET home page. */
+  router.user = (req, res, next) => {
+  
+    
+      res.render('user/user-detail',{ customer: customersAll ,user: req.user.id})
+    };
+  //get detail customer
+router.getDetail = (req, res, next) => {
+  let id = req.user.id;
+  let sql = 'select * from customers where id = '+ id;
+  console.log(sql);
+  con.query(sql, function(err, results, fields){
+    console.log(results[0]);
+    var x = new customer(results[0].id, results[0].name, results[0].phoneNumber,results[0].place, results[0].account,results[0].password, results[0].status);
+    res.render('user/user-detail',{customer : x,user: req.user.id});
+    
+  });
+};
+
+module.exports = router;

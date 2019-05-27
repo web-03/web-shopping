@@ -242,9 +242,9 @@
 								<i class="zmdi zmdi-search"></i>
 							</button>
 	
-							<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" placeholder="Search" id="seacrh"><button onclick="SearchProduct" >Tìm</button>
+							<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" placeholder="Search" id="search" onkeyup="myFunction()">
 						</div>	
-					</div>
+					</div> 
 			</div>
 		</div>
 
@@ -269,7 +269,7 @@
 							</a> -->
 						</div>
 
-						<div class="block2-txt flex-w flex-t p-t-14 ">
+						<div class="block2-txt flex-w flex-t p-t-14 " id="table">
 							<div class="block2-txt-child1 flex-col-l ">
 								<a href='chi-tiet-san-pham/<%=products[i].id%>' class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 									<%= products[i].name %>
@@ -571,12 +571,10 @@
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
 	<script>
-	function SearchProduct(){
-    var product_name=document.getElementById("search").value;
-    
-       alert(product_name); 
-	};
-
+	
+	
+	
+	
 	</script>
 
 </body>
