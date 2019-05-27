@@ -33,6 +33,7 @@ router.get('/lien-he',contactController.getIndex);
 router.get('/gio-hang',shoppingCartController.getIndex);
 router.get('/dang-xuat',usersController.logout);
 router.get('/thong-tin-tai-khoan',userDetailController.getDetail);
+router.post('/thong-tin-tai-khoan',userDetailController.update);
 //router.get('/chi-tiet-san-pham',productDetailController.getIndex);
 //router.get('chi-tiet-san-pham/:id',productController.getDetail);
 // router.get('/test',test.list);

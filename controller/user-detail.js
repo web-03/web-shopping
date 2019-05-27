@@ -37,5 +37,11 @@ router.getDetail = (req, res, next) => {
     
   });
 };
-
+router.update=(req,res,next)=>{
+  let id = req.user.id;
+  let sql='UPDATE customers SET name="'+req.body.name+'",phoneNumber="'+req.body.phone+'",place="'+req.body.address+'" WHERE id ='+id;
+  con.query(sql);
+  console.log(sql);
+  res.redirect('thong-tin-tai-khoan');
+}
 module.exports = router;
