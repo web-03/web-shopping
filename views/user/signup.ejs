@@ -653,6 +653,7 @@
 						title="Nhập vào số điện thoại" required="" onblur="checkPhone()" style="">
 					<span class="text-danger" id="phone1" style="display:none;">Số điện thoại này đã được sử dụng!</span>
 					<span class="text-danger" id="phone2" style="display:none;">Số điện thoại không được trống!</span>
+					<span class="text-danger" id="errPhoneNumber" style="display:none;">Số điện thoại không đúng định dạng!</span>
 				</div>
 				<div class="form-control w3layouts">
 					<input type="text" id="address" name="address" placeholder="Địa chỉ" title="Nhập vào địa chỉ"
@@ -743,6 +744,19 @@
 		}
 		function checkPhone() {
 			var phoneCurrent = $("#phoneNumber").val();
+			var flag=false;
+            var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+            var mobile = $('#phoneNumber').val();
+            if (vnf_regex.test(mobile) == false) {
+				$('#phoneNumber').attr("style", "color: red");
+                $("#errPhoneNumber").attr("style", "");
+				flag=false;
+            } else {
+				$('#phoneNumber').attr("style", "");
+                $("#errPhoneNumber").attr("style", "display:none;");
+				flag=true;
+            }
+			if(flag=true){
 			$.ajax({
 				url: "/tai-khoan/check-phone",
 				type: "POST",
@@ -769,6 +783,7 @@
 					alert("Lỗi");
 				}
 			});
+			}
 		}
 	</script>
 </body>

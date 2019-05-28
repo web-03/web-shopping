@@ -33,7 +33,7 @@ router.getDetail = (req, res, next) => {
   con.query(sql, function(err, results, fields){
     console.log(results[0]);
     var x = new customer(results[0].id, results[0].name, results[0].phoneNumber,results[0].place, results[0].account,results[0].password, results[0].status);
-    res.render('user/user-detail',{customer : x,user: req.user.id});
+    res.render('user/user-detail',{customer : x,user: req.user});
     
   });
 };
