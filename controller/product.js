@@ -1,25 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var con = require('./../config/key');
-
-var product = function(id, name,price,quantity, description, categoryId,image, status){
-  this.id = id;
-  this.name = name;
-  this.price = price;
-  this.quantity = quantity;
-  this.description = description;
-  this.categoryId = categoryId;
-  this.image = image;
-  this.status = status;
-}
+const product = require('./../model/product');
+const category = require('./../model/category');
 var productsAll = [];
 
-var category = function(id, name, status, description){
-  this.id = id;
-  this.name = name;
-  this.status = status;
-  this.description = description;
-}
+
 var categoriesAll = [];
 
 con.query('select * from categories WHERE status = 1', function (err, rows, fields) {

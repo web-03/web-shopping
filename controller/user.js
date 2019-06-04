@@ -1,18 +1,12 @@
 var express = require('express');
 var con = require('./../config/key');
+const customer = require('./../model/customer');
 
 var passport = require('passport'); // pass passport for configuration
 var router = express.Router();
 
 
-var customer = function(id, name, account, phoneNumber, place, status){
-  this.id = id;
-  this.name = name;
-  this.account = account;
-  this.phoneNumber = phoneNumber;
-  this.place = place;
-  this.status = status;
-}
+
 /* GET home page. */
 router.user = (req, res, next) => {
 //   if(req.isAuthenticated()) {

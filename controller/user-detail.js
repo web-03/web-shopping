@@ -1,15 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var con = require('./../config/key');
-var customer = function(id, name, phoneNumber, place,account,password, status){
-    this.id = id;
-    this.name = name;
-    this.account = account;
-    this.phoneNumber = phoneNumber;
-    this.place = place;
-    this.status = status;
-    this.password=password;
-  }
+const customer = require('./../model/customer');
   var customersAll = [];
   con.query('select * from customers WHERE status = 1', function (err, rows, fields) {
     if (err) throw err

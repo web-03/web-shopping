@@ -2,13 +2,8 @@ var express = require('express');
 var router = express.Router();
 var con = require('./../config/key');
 var router = express.Router();
+const category = require('./../model/category');
 
-var category = function(id, name, status, description){
-  this.id = id;
-  this.name = name;
-  this.status = status;
-  this.description = description;
-}
 
 var categoriesAll = [];
 
