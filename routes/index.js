@@ -20,8 +20,9 @@ var homeController = require('../controller/home');
 router.get('/tai-khoan',usersController.user);
 router.post('/tai-khoan/dang-ki',usersController.signup);
 router.post('/tai-khoan/dang-nhap',usersController.signin);
-router.post('/tai-khoan/check-account',usersController.check);
-router.post('/tai-khoan/check-phone',usersController.checkPhone);
+router.post('/tai-khoan/check-account',isLoggedIn,usersController.check);
+router.post('/tai-khoan/check-phone',isLoggedIn,usersController.checkPhone);
+
 router.get('/dang-ki',signupController.getIndex);
 router.get('/gioi-thieu',aboutController.getIndex);
 router.get('/bai-viet',blogController.getIndex);
@@ -29,11 +30,12 @@ router.get('/san-pham',productController.getIndex);
 router.get('/san-pham/:type & :from',productController.getIndex);
 router.get('/san-pham/tim-kiem',productController.getSearch);
 router.get('/chi-tiet-san-pham/:id', productDetailController.getDetail);
+router.post('/chi-tiet-san-pham',isLoggedIn,productDetailController.order);
 router.get('/lien-he',contactController.getIndex);
-router.get('/gio-hang',shoppingCartController.getIndex);
+router.get('/gio-hang',isLoggedIn,shoppingCartController.getIndex);
 router.get('/dang-xuat',usersController.logout);
-router.get('/thong-tin-tai-khoan',userDetailController.getDetail);
-router.post('/thong-tin-tai-khoan',userDetailController.update);
+router.get('/thong-tin-tai-khoan', isLoggedIn ,userDetailController.getDetail);
+router.post('/thong-tin-tai-khoan', isLoggedIn, userDetailController.update);
 //router.get('/chi-tiet-san-pham',productDetailController.getIndex);
 //router.get('chi-tiet-san-pham/:id',productController.getDetail);
 // router.get('/test',test.list);
@@ -46,5 +48,13 @@ router.get('/',homeController.getIndex);
 // router.get('/', function(req, res, next) {
 //   res.render('home/index', { title: 'Express' });
 // });
+function isLoggedIn(req, res, next) {
 
+	// if user is authenticated in the session, carry on
+	if (req.isAuthenticated())
+		return next();
+
+	// if they aren't redirect them to the home page
+    res.redirect('/tai-khoan');
+}
 module.exports = router;

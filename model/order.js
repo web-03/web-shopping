@@ -1,4 +1,5 @@
-var order = function (id, address, customerName, orderName, sumMoney, status, create) {
+var con = require('./../config/key');
+var order = function (id, address, customerName, orderName, sumMoney, status, create,id_customer) {
     this.id = id;
     this.address = address;
     this.customerName = customerName;
@@ -6,5 +7,9 @@ var order = function (id, address, customerName, orderName, sumMoney, status, cr
     this.sumMoney = sumMoney;
     this.status = status;
     this.create = create;
+    this.id_customer = id_customer;
 }
+
+
+
 module.exports = order;
