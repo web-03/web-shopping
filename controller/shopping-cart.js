@@ -12,7 +12,7 @@ var id_order =-1;
 /* GET home page. */
 router.getIndex = (req, res, next) => {
   orderDetailAll = [];
-  productAll = [];
+  productAll = [];  
   id_order = -1;
     con.query('select * from order_detail where status = 1 and id_customer = ?', [req.user.id], function (err, rows, fields) {
     if (err) throw err

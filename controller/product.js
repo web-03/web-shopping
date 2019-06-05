@@ -8,23 +8,24 @@ var productsAll = [];
 
 var categoriesAll = [];
 
-con.query('select * from categories WHERE status = 1', function (err, rows, fields) {
-  if (err) throw err
 
-  rows.forEach(element => {
-    var x = new category(element.id, element.name, element.status, element.description);
-    categoriesAll.push(x);
-  })
-});
 
 /* GET home page. and get all product */
 router.getIndex = (req, res, next) => {
   productsAll = [];
+  categoriesAll = [];
   var from = req.query.from;
   var to = req.query.to;
   console.log(from);
   console.log(to);
+  con.query('select * from categories WHERE status = 1', function (err, rows, fields) {
+    if (err) throw err
   
+    rows.forEach(element => {
+      var x = new category(element.id, element.name, element.status, element.description);
+      categoriesAll.push(x);
+    })
+  });
   if (from == undefined && to == undefined){
     con.query('select * from products WHERE status = 1', function (err, rows, fields) {
       if (err) throw err
