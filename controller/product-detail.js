@@ -79,6 +79,8 @@ router.order = (req,res,next)=>{
       con.query(sql);
     }
 
+    res.send("added");
+
   });
   
 

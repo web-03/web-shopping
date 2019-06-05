@@ -8,20 +8,23 @@ const product = require('./../model/product');
 
 var orderDetailAll = [];
 var productAll = [];
+var id_order =-1;
 /* GET home page. */
 router.getIndex = (req, res, next) => {
   orderDetailAll = [];
   productAll = [];
+  id_order = -1;
     con.query('select * from order_detail where status = 1 and id_customer = ?', [req.user.id], function (err, rows, fields) {
     if (err) throw err
 
     rows.forEach(element => {
       var x = new orderDetail(element.id, element.id_customer, element.id_product, element.id_order, element.status, element.note);
       orderDetailAll.push(x);
+      id_order = element.id_order;
 
     });
     console.log(orderDetailAll);
-    
+    if(id_order!=-1){
       var query = "select * from products WHERE";
       for (var i = 0;i<orderDetailAll.length ; i++)
       {
@@ -43,13 +46,36 @@ router.getIndex = (req, res, next) => {
         res.render('shopping/shopping-cart', { user: req.user , productAll: productAll});
       });
     
+    }
+    else{
+      res.render('shopping/shopping-cart', { user: req.user , productAll: productAll});
+    }
     
-    // res.render('shopping/shopping-cart', { user: req.user });
   });
 
 
   // 
 
 };
+router.addOrder = async(req,res,next) =>{
+  
+  var customer_name = req.body.customer_name;
+  var phone_number= req.body.phone_number;
+  var address=req.body.address +" " + req.body.quan +" "+ req.body.tp;
+if(id_order!=-1){
 
+
+  let sql = 'UPDATE orders SET address = "'+address+'" , phoneNumber =  "'+phone_number+'", customer_name = "'+customer_name+'", status = '+0+' WHERE id = '+id_order;
+  console.log(sql);
+  await con.query(sql);
+  sql = 'UPDATE order_detail SET status = '+0+' WHERE id_order = '+id_order;
+  console.log(sql);
+  await con.query(sql);
+
+  res.redirect('back');
+}
+else{
+  res.redirect('/san-pham');
+}
+}
 module.exports = router;
