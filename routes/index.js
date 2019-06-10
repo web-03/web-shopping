@@ -22,12 +22,12 @@ router.post('/tai-khoan/dang-ki',usersController.signup);
 router.post('/tai-khoan/dang-nhap',usersController.signin);
 router.post('/tai-khoan/check-account',isLoggedIn,usersController.check);
 router.post('/tai-khoan/check-phone',isLoggedIn,usersController.checkPhone);
-
+router.get('/confirm',signupController.confirmMail);
 router.get('/dang-ki',signupController.getIndex);
 router.get('/gioi-thieu',aboutController.getIndex);
 router.get('/bai-viet',blogController.getIndex);
 router.get('/san-pham',productController.getIndex);
-router.get('/san-pham/:type & :from',productController.getIndex);
+// router.get('/san-pham/:type & :from',productController.getIndex);
 router.get('/san-pham/tim-kiem',productController.getSearch);
 router.get('/chi-tiet-san-pham/:id', productDetailController.getDetail);
 router.post('/chi-tiet-san-pham',isLoggedIn,productDetailController.order);
@@ -39,7 +39,7 @@ router.get('/thong-tin-tai-khoan', isLoggedIn ,userDetailController.getDetail);
 router.post('/thong-tin-tai-khoan', isLoggedIn, userDetailController.update);
 //router.get('/chi-tiet-san-pham',productDetailController.getIndex);
 //router.get('chi-tiet-san-pham/:id',productController.getDetail);
-// router.get('/test',test.list);
+
 router.get('/',homeController.getIndex);
 
 // router.get('/nguoi-dung',indexuserController.getIndex);

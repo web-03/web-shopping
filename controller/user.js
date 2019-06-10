@@ -1,7 +1,9 @@
 var express = require('express');
 var con = require('./../config/key');
-const customer = require('./../model/customer');
 
+const customer = require('./../model/customer');
+var nodeMailer = require('nodemailer');
+var mailSender = require('./../config/mail');
 var passport = require('passport'); // pass passport for configuration
 var router = express.Router();
 
@@ -20,42 +22,7 @@ router.user = (req, res, next) => {
 var abc = [];
 
 //signup connect with link: 
-router.signup = (req,res,next)=>{
-  
-  
 
-  passport.authenticate('local-signup',{
-    successRedirect: '/tai-khoan',
-    failureRedirect: '/dang-ki',
-    failureFlash: true
-  },function (err,user,info){
-    if(err) {
-      req.flash('loginMessage', err.message)
-      return res.redirect('/dang-ki');
-    }
-
-    if(!user) {
-      req.flash('loginMessage', 'Tài khoản hoặc mật khẩu không chính xác')
-    
-      return res.redirect('/dang-ki');
-    }
-
-    return req.logIn(user, function(err) {
-        if(err) {
-          req.flash('loginMessage', 'Tài khoản hoặc mật khẩu không chính xác')
-    
-          return res.redirect('/dang-ki');
-          
-        } else {
-            return res.redirect('/tai-khoan');
-        }
-    });
-  })(req, res, next);
-  //   let sql='INSERT INTO customers(name, phoneNumber, place,account,password,status) VALUES ("'+name+'","'+phoneNumber+'","'+address+'","'+account+'","'+password+'",1)';
-  //   con.query(sql);
-  // res.redirect('/tai-khoan');
-  
-}
 
 
 //login connect with link /tai-khoan/dang-nhap
@@ -157,4 +124,68 @@ router.logout=(req,res,next)=>
   req.logout();
   res.redirect('/');
 }
+
+router.signup = (req,res,next)=>{
+  
+  
+
+  passport.authenticate('local-signup',{
+    successRedirect: '/tai-khoan',
+    failureRedirect: '/dang-ki',
+    failureFlash: true
+  },function (err,user,info){
+    if(err) {
+      req.flash('loginMessage', err.message)
+      return res.redirect('/dang-ki');
+    }
+
+    if(!user) {
+      req.flash('loginMessage', 'Tài khoản hoặc mật khẩu không chính xác')
+    
+      return res.redirect('/dang-ki');
+    }
+
+    // return req.logIn(user, function(err) {
+    //     if(err) {
+    //       req.flash('loginMessage', 'Tài khoản hoặc mật khẩu không chính xác')
+    
+    //       return res.redirect('/dang-ki');
+          
+    //     } else {
+    //         return res.redirect('/');
+    //     }
+    // });
+    else{
+      console.log(user);
+      
+      
+      
+      let text = "click vào link bên dưới để xác minh tài khoản của bạn. \n https://web-shopping.herokuapp.com/confirm?id=" + user.id +"&key="+user.key;
+      
+      let transporter = nodeMailer.createTransport(mailSender);
+      let mailOptions = {
+          // should be replaced with real recipient's account
+          
+          to: user.email,
+          subject: "web-shopping.herokuapp.com",
+          text: text
+      };
+      transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+              return console.log(error);
+          }
+          console.log('Message %s sent: %s', info.messageId, info.response);
+      });
+      req.flash('loginMessage', 'Đăng kí thành công, vui lòng xác minh tài khoản để đăng nhập!')
+      res.redirect('/tai-khoan',);
+    }
+    
+  })(req, res, next);
+  //   let sql='INSERT INTO customers(name, phoneNumber, place,account,password,status) VALUES ("'+name+'","'+phoneNumber+'","'+address+'","'+account+'","'+password+'",1)';
+  //   con.query(sql);
+  // res.redirect('/tai-khoan');
+  
+}
+
+
 module.exports = router;
