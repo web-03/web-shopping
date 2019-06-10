@@ -644,31 +644,28 @@
 
 				<div class="form-control w3layouts" style="align-items: center">
 					<input type="text" id="account" name="account" placeholder="Tên đăng nhập"
-						title="Nhập vào tên đăng nhập" required="" onblur="checkAccount()" style="">
+						title="Nhập vào tên đăng nhập" required onblur="checkAccount()" style="">
 					<span class="text-danger" id="error1" style="display:none;">Tên đăng nhập này đã tồn tại!</span>
-					<span class="text-danger" id="error2" style="display:none;">Tên đăng nhập không được trống!</span>
 				</div>
 				<div class="form-control w3layouts" style="align-items: center">
 					<input type="number" id="phoneNumber" name="phoneNumber" placeholder="Số điện thoại"
-						title="Nhập vào số điện thoại" required="" onblur="checkPhone()" style="">
+						title="Nhập vào số điện thoại" required onblur="checkPhone()" style="">
 					<span class="text-danger" id="phone1" style="display:none;">Số điện thoại này đã được sử dụng!</span>
-					<span class="text-danger" id="phone2" style="display:none;">Số điện thoại không được trống!</span>
 					<span class="text-danger" id="errPhoneNumber" style="display:none;">Số điện thoại không đúng định dạng!</span>
 				</div>
 				<div class="form-control w3layouts">
 					<input type="text" id="address" name="address" placeholder="Địa chỉ" title="Nhập vào địa chỉ"
-						required="">
+						required>
 				</div>
 
 				<div class="form-control agileinfo">
 					<input type="password" class="lock" name="password" placeholder="Mật khẩu" id="password1"
-						title="Nhập mật khẩu" required="">
+						title="Nhập mật khẩu" required>
 				</div>
 
 				<div class="form-control agileinfo">
 					<input type="password" class="lock" name="confirm-password" placeholder="Nhập lại mật khẩu"
-						id="password2" title="Nhập lại mật khẩu" required="">
-					<span class="text-danger" id="errpassword" style="display:none;">Hai mật khẩu không trùng nhau!</span>
+						id="password2" title="Nhập lại mật khẩu" required>
 				</div>
 
 				<input type="submit" class="register" value="Đăng kí">
@@ -701,17 +698,6 @@
 	<% include ./../elements/footer %>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script>
-
-		$("#password2").mouseout(function(){
-			let a = $("#password1").val();
-			let b = $("#password2").val();
-			if(a != b){
-				$('#errpassword').attr("style", "");
-			}
-			else{
-				$('#errpassword').attr("style", "display:none;");
-			}
-		});
 
 		function checkAccount() {
 			var accountCurrent = document.getElementById("account").value;
