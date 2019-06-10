@@ -56,7 +56,7 @@ module.exports = function(passport) {
             console.log(username+password+phoneNumber+address+name);
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
-            con.query("SELECT * FROM customers WHERE account = ? and email = ?",[username,email], function(err, rows) {
+            con.query("SELECT * FROM customers WHERE account = ? or email = ?",[username,email], function(err, rows) {
                 if (err){
                     console.log(err.message);
                     return done(err);

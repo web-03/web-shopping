@@ -21,6 +21,7 @@ router.get('/tai-khoan',usersController.user);
 router.post('/tai-khoan/dang-ki',usersController.signup);
 router.post('/tai-khoan/dang-nhap',usersController.signin);
 router.post('/tai-khoan/check-account',usersController.check);
+router.post('/tai-khoan/check-email',usersController.checkEmail);
 router.post('/tai-khoan/check-phone',usersController.checkPhone);
 router.get('/confirm',signupController.confirmMail);
 router.get('/dang-ki',signupController.getIndex);

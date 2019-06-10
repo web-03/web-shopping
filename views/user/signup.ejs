@@ -281,6 +281,7 @@
 
 		input#firstname,
 		input#account,
+		input#email,
 		input#password1,
 		input#password2,
 		input#phoneNumber,
@@ -637,6 +638,9 @@
 	<% include ./../elements/header %>
 	<div class="content-w3ls">
 		<div class="content-agile2">
+				<% if (message.length > 0) { %>
+					<div class="alert alert-danger"><%= message %></div>
+				<% } %>
 			<form action="/tai-khoan/dang-ki" method="POST">
 				<div class="form-control w3layouts">
 					<input type="text" id="firstname" name="name" placeholder="Họ và tên" title="Nhập vào tên của bạn"
@@ -647,6 +651,11 @@
 					<input type="text" id="account" name="account" placeholder="Tên đăng nhập"
 						title="Nhập vào tên đăng nhập" required onblur="checkAccount()" style="">
 					<span class="text-danger" id="error1" style="display:none;">Tên đăng nhập này đã tồn tại!</span>
+				</div>
+				<div class="form-control w3layouts" style="align-items: center">
+						<input type="email" id="email" name="email" placeholder="Email"
+							title="Nhập vào Email" required onblur="checkEmail()" style="">
+						<span class="text-danger" id="errorEmail" style="display:none;">Địa chỉ email này đã tồn tại!</span>
 				</div>
 				<div class="form-control w3layouts" style="align-items: center">
 					<input type="number" id="phoneNumber" name="phoneNumber" placeholder="Số điện thoại"
@@ -669,7 +678,7 @@
 						id="password2" title="Nhập lại mật khẩu" required>
 				</div>
 
-				<input type="submit" class="register" value="Đăng kí">
+				<input type="submit" id="btnSubmit" class="register" value="Đăng kí">
 			</form>
 			<script type="text/javascript">
 				window.onload = function () {
@@ -701,6 +710,7 @@
 	<script>
 
 		function checkAccount() {
+			var bt = document.getElementById('btnSubmit');
 			var accountCurrent = document.getElementById("account").value;
 			$.ajax({
 				url: "/tai-khoan/check-account",
@@ -708,19 +718,59 @@
 				contentType: 'application/x-www-form-urlencoded',
 				data: { data: accountCurrent },
 				success: function (response) {
+					
 					if (response == "1") {
+						
 						$('#error1').attr("style", "display:none;");
 						$('#error2').attr("style", "display:none;");
 						$('#account').attr("style", "");
+						bt.disabled = false;
 					}
 					else if (response == "0") {
 						$('#account').attr("style", "color: red");
 						$('#error1').attr("style", "");
 						$('#error2').attr("style", "display:none;");
+						bt.disabled = true;
 					}
 					else {
 						$('#error1').attr("style", "display:none;");
 						$('#error2').attr("style", "");
+						bt.disabled = false;
+					}
+
+				},
+				error: function () {
+					alert("Lỗi");
+				}
+			});
+		}
+		function checkEmail() {
+			var bt = document.getElementById('btnSubmit');
+			var accountCurrent = document.getElementById("email").value;
+			$.ajax({
+				url: "/tai-khoan/check-email",
+				type: "POST",
+				contentType: 'application/x-www-form-urlencoded',
+				data: { data: accountCurrent },
+				success: function (response) {
+					
+					if (response == "1") {
+						
+						$('#errorEmail').attr("style", "display:none;");
+						
+						$('#email').attr("style", "");
+						bt.disabled = false;
+					}
+					else if (response == "0") {
+						$('#email').attr("style", "color: red");
+						$('#errorEmail').attr("style", "");
+						
+						bt.disabled = true;
+					}
+					else {
+						$('#errorEmail').attr("style", "display:none;");
+						$('#email').attr("style", "");
+						bt.disabled = false;
 					}
 
 				},
@@ -730,6 +780,7 @@
 			});
 		}
 		function checkPhone() {
+			var bt = document.getElementById('btnSubmit');
 			var phoneCurrent = $("#phoneNumber").val();
 			var flag=false;
             var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
@@ -738,10 +789,12 @@
 				$('#phoneNumber').attr("style", "color: red");
                 $("#errPhoneNumber").attr("style", "");
 				flag=false;
+				bt.disabled = true;
             } else {
 				$('#phoneNumber').attr("style", "");
                 $("#errPhoneNumber").attr("style", "display:none;");
 				flag=true;
+				bt.disabled = false;
             }
 			if(flag=true){
 			$.ajax({
@@ -754,15 +807,18 @@
 						$('#phoneNumber').attr("style", "");
 						$('#phone1').attr("style", "display:none;");
 						$('#phone2').attr("style", "display:none;");
+						bt.disabled = false;
 					}
 					else if (response == "0") {
 						$('#phoneNumber').attr("style", "color: red");
 						$('#phone1').attr("style", "");
 						$('#phone2').attr("style", "display:none;");
+						bt.disabled = true;
 					}
 					else {
 						$('#phone1').attr("style", "display:none;");
 						$('#phone2').attr("style", "");
+						bt.disabled = false;
 					}
 
 				},

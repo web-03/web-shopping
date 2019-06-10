@@ -5,7 +5,6 @@ var router = express.Router();
 router.getIndex = (req, res, next) => {
   res.render('user/signup',{user: req.user,message: req.flash('loginMessage')});
 };
-
 router.confirmMail = (req,res,next)=>
 {
  const id = req.query.id;

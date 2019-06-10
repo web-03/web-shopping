@@ -92,7 +92,30 @@ router.check = (req, res) => {
     });
   }
 }
+router.checkEmail = (req, res) => {
+  let email = req.body.data;
+  if (email == undefined || email == "") {
+    res.send("3");
+  } else {
 
+    con.query('select * from customers WHERE email ="' + email + '"', function (err, rows, fields) {
+      if (err) throw err
+      let list = [];
+      rows.forEach(element => {
+        var x = new customer(element.id, element.name, element.account, element.phoneNumber, element.place, element.status);
+        list.push(x);
+
+      });
+      console.log(list.length);
+      if (list.length >= 1) {
+        res.send("0");
+      }
+      else {
+        res.send("1");
+      }
+    });
+  }
+}
 router.checkPhone = (req, res) => {
   let phoneNumber = req.body.data;
   if (phoneNumber == undefined || phoneNumber == "") {
@@ -125,6 +148,7 @@ router.logout=(req,res,next)=>
   res.redirect('/');
 }
 
+
 router.signup = (req,res,next)=>{
   
   
@@ -140,7 +164,7 @@ router.signup = (req,res,next)=>{
     }
 
     if(!user) {
-      req.flash('loginMessage', 'Tài khoản hoặc mật khẩu không chính xác')
+      req.flash('loginMessage', 'Tên đăng nhập hoặc địa chỉ email đã được sử dụng');
     
       return res.redirect('/dang-ki');
     }
