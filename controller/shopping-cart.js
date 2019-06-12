@@ -14,48 +14,24 @@ router.getIndex = (req, res, next) => {
   orderDetailAll = [];
   productAll = [];
   id_order = -1;
-  con.query('select * from order_detail where status = 1 and id_customer = ?', [req.user.id], function (err, rows, fields) {
+  con.query('SELECT p.id , p.name, p.price , p.image , p.detail ,p.quantity,p.id_category,p.status,od.id_order FROM order_detail od, products p WHERE od.status = 1 AND od.id_customer = ? AND p.id = od.id_product', [req.user.id], function (err, rows, fields) {
     if (err) throw err
 
     rows.forEach(element => {
-      var x = new orderDetail(element.id, element.id_customer, element.id_product, element.id_order, element.status, element.note);
-      orderDetailAll.push(x);
       id_order = element.id_order;
+      var x = new product(element.id, element.name, element.price, element.quantity, element.detail, element.id_category, element.image, element.status);
+      productAll.push(x);
 
     });
-    console.log(orderDetailAll);
-    if (id_order != -1) {
-      var query = "select * from products WHERE";
-      for (var i = 0; i < orderDetailAll.length; i++) {
-        query = query + " id = " + orderDetailAll[i].id_product;
-        if (i + 1 < orderDetailAll.length)
-          query = query + " or ";
-      }
-      console.log(query);
-      con.query(query, function (err, rows, fields) {
-        if (err) throw err
 
-        rows.forEach(element => {
-          var x = new product(element.id, element.name, element.price, element.quantity, element.detail, element.id_category, element.image, element.status);
-          productAll.push(x);
-        })
-
-        // res.json({"abc": productAll})
-        console.log(productAll);
-        res.render('shopping/shopping-cart', { user: req.user, productAll: productAll });
-      });
-
-    }
-    else {
-      res.render('shopping/shopping-cart', { user: req.user, productAll: productAll });
-    }
-
+    res.render('shopping/shopping-cart', { user: req.user, productAll: productAll });
   });
-
-
-  // 
-
 };
+
+
+// 
+
+
 router.addOrder = async (req, res, next) => {
 
   var customer_name = req.body.customer_name;
