@@ -167,29 +167,18 @@
 											<i class="fs-16 zmdi zmdi-minus"></i>
 										</div>
 
-										<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
+										<input class="mtext-104 cl3 txt-center num-product" type="number" id= "num-product" name="num-product" value="1">
 
 										<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 											<i class="fs-16 zmdi zmdi-plus"></i>
 										</div>
 									</div>
-									<% 
-									var isLogin = "display:none";
-									var notLogin = "";
-									if(user != undefined) 
-									{	
-										isLogin = "";
-										notLogin = "display:none";
-										
-									} %>
+									
 									<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" 
-										style="<%= isLogin %>" onclick="order(<%= product.id %>)">
+										 onclick="order(<%= product.id %>)">
 										Thêm vào giỏ hàng
 									</button>
-									<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 "
-									style="<%= notLogin %>" onclick="location.href = '/tai-khoan'">
-										Đăng Nhập
-									</button>
+									
 								</div>
 							</div>	
 						</div>
@@ -906,7 +895,7 @@
 
 									<div class="size-204 respon6-next">
 										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="time">
+											<select class="js-select2" name="size">
 												<option>Chọn size</option>
 												<option>Size S</option>
 												<option>Size M</option>
@@ -925,7 +914,7 @@
 
 									<div class="size-204 respon6-next">
 										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="time">
+											<select class="js-select2" name="color">
 												<option>Chọn màu</option>
 												<option>Đỏ/option>
 												<option>Xanh</option>
@@ -951,7 +940,7 @@
 											</div>
 										</div>
 
-										<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+										<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" onclick="order(<%= product.id %>)">
 											Thêm vào giỏ hàng
 										</button>
 									</div>
@@ -1090,16 +1079,19 @@
 	function order(id) {
 			var color = document.getElementById("color").value;
 			var size = document.getElementById("size").value;
+			var num = document.getElementById("num-product").value;
 			console.log("ordered");
 			console.log(color);
 			console.log(size);
+			console.log(num);
 			$.ajax({
 				url: "/chi-tiet-san-pham",
 				type: "POST",
 				contentType: 'application/x-www-form-urlencoded',
 				data: { id_product: id,
 						color: color,
-						size: size },
+						size: size,
+						num_product: num },
 				success: function (response) {
 					
 

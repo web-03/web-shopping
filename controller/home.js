@@ -11,6 +11,7 @@ var categoriesAll = [];
 
 /* GET home page. */
 router.getIndex = (req, res, next) => {
+  
   productsAll = [];
   categoriesAll = [];
   console.log(req.user);

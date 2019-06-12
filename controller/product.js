@@ -18,6 +18,7 @@ router.getIndex = (req, res, next) => {
   var to = req.query.to;
   console.log(from);
   console.log(to);
+ 
   con.query('select * from categories WHERE status = 1', function (err, rows, fields) {
     if (err) throw err
   

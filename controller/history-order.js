@@ -14,7 +14,7 @@ router.getIndex = (req, res, next) => {
   orderDetailAll = [];
   productAll = [];
   id_order = -1;
-  con.query('SELECT p.id , p.name, p.price , p.image , p.detail ,p.quantity,p.id_category,p.status,od.id_order FROM order_detail od, products p WHERE od.status = 1 AND od.id_customer = ? AND p.id = od.id_product', [req.user.id], function (err, rows, fields) {
+  con.query('SELECT p.*, od.id_order FROM order_detail od, products p WHERE od.status = 1 AND od.id_customer = ? AND p.id = od.id_product', [req.user.id], function (err, rows, fields) {
     if (err) throw err
 
     rows.forEach(element => {
