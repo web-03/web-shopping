@@ -35,6 +35,8 @@ router.get('/chi-tiet-san-pham/:id', productDetailController.getDetail);
 router.post('/chi-tiet-san-pham',productDetailController.order);
 router.get('/lien-he',contactController.getIndex);
 router.get('/gio-hang',shoppingCartController.getIndex);
+router.post('/gio-hang/change-quantity',shoppingCartController.changeQuantity);
+router.get('/gio-hang/:id', shoppingCartController.deleteProduct);
 router.post('/gio-hang',isLoggedIn,shoppingCartController.addOrder);
 router.get('/lich-su-mua-hang',isLoggedIn,historyorderController.getIndex);
 router.get('/dang-xuat',usersController.logout);

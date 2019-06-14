@@ -1,26 +1,30 @@
 var express = require('express');
 var router = express.Router();
 var con = require('../config/key');
-const order = require('./../model/order');
+var con1 = require('../config/key');
 
+const orderDetail = require('../model/orderDetail');
+const product = require('../model/product');
 
-
-var ordersAll = [];
+var orderDetailAll = [];
+var productAll = [];
 var id_order = -1;
 /* GET home page. */
 router.getIndex = (req, res, next) => {
-  ordersAll = [];
+  orderDetailAll = [];
+  productAll = [];
   id_order = -1;
-  con.query('SELECT o.* FROM  orders o WHERE o.id_customer = ? ', [req.user.id], function (err, rows, fields) {
+  con.query('SELECT p.*, od.id_order FROM order_detail od, products p WHERE od.status = 1 AND od.id_customer = ? AND p.id = od.id_product', [req.user.id], function (err, rows, fields) {
     if (err) throw err
 
     rows.forEach(element => {
-      var x = new order(element.id, element.address, element.customer_name, element.order_name, element.sum_money, element.status);
-      ordersAll.push(x);
+      id_order = element.id_order;
+      var x = new product(element.id, element.name, element.price, element.quantity, element.detail, element.id_category, element.image, element.status);
+      productAll.push(x);
 
     });
 
-    res.render('shopping/history-order', { user: req.user,orders :  ordersAll});
+    res.render('shopping/history-order-detail', { user: req.user, productAll: productAll });
   });
 };
 

@@ -13,7 +13,7 @@ var id_order = -1;
 router.getIndex = (req, res, next) => {
   orderDetailAll = [];
   productAll = [];
-
+  
   productSession = req.session.productSession;
   console.log(productSession);
   if (productSession != undefined && productSession.length >= 1) {
@@ -23,11 +23,11 @@ router.getIndex = (req, res, next) => {
       ids.push(productSession[i].id);
     }
     console.log(ids);
-    let query = 'select * from products where id in (' + ids + ')';
+    let query = 'select * from products where id in (' + ids + ') order by field (id,'+ids+')';
     console.log(query);
     con.query(query, function (err, rows) {
-      if (err) throw err
-
+      console.log(rows);
+      if(rows != null){
       for (var i = 0; i < rows.length; i++) {
         var x = new product(rows[i].id, rows[i].name, rows[i].price, productSession[i].quantity, rows[i].detail, rows[i].id_category, rows[i].image, rows[i].status);
         productAll.push(x);
@@ -35,6 +35,10 @@ router.getIndex = (req, res, next) => {
 
       console.log(productAll);
       res.render('shopping/shopping-cart', { user: req.user, productAll: productAll });
+    }
+    else{
+      res.render('shopping/shopping-cart', { user: req.user, productAll: productAll });
+    }
     })
   }
   else {
@@ -52,14 +56,21 @@ router.getIndex = (req, res, next) => {
 
 router.addOrder = async (req, res, next) => {
 
+  
   var customer_name = req.body.customer_name;
   var phone_number = req.body.phone_number;
   var address = req.body.address + " " + req.body.quan + " " + req.body.tp;
 
-  var sum_money = 100000;
+  var sum_money = 0;
   var id_order = -1;
   var id_customer = req.user.id;
+  if(productAll.length >=1)
+  {
   if (id_customer != undefined) {
+    for(var i = 0;i<productAll.length;i++)
+    {
+      sum_money = sum_money + (productAll[i].quantity*productAll[i].price);
+    }
     let sql = 'INSERT INTO orders (order_name,status,sum_money,id_customer) VALUES (' + '"abc"' + ',0,' + sum_money + ',' + id_customer + ')';
     console.log(sql);
     await con.query(sql);
@@ -85,28 +96,50 @@ router.addOrder = async (req, res, next) => {
       res.redirect('back');
     });
   }
+
   else{
     res.redirect('/tai-khoan');
   }
+}
+else{
+  res.redirect('back');
+}
+}
+router.deleteProduct = (req,res,next) =>{
+  var id_product = req.params.id;
+  
+ 
+  for(var i = 0;i<productSession.length;i++)
+  {
+    if(parseInt(productSession[i].id) == id_product)
+    {
+      
+     productSession.splice(i,1);
+     
 
-
-
-
-  // if (id_order != -1) {
-
-
-  //   let sql = 'UPDATE orders SET address = "' + address + '" , phoneNumber =  "' + phone_number + '", customer_name = "' + customer_name + '", status = ' + 0 + ' WHERE id = ' + id_order;
-  //   console.log(sql);
-  //   await con.query(sql);
-  //   sql = 'UPDATE order_detail SET status = ' + 0 + ' WHERE id_order = ' + id_order;
-  //   console.log(sql);
-  //   await con.query(sql);
-
-  //   res.redirect('back');
-  // }
-  // else {
-  //   res.redirect('/san-pham');
-  // }
+     
+    }
+  }
+  
+  req.session.productSession = productSession;
+ 
+  res.redirect('back');
+}
+router.changeQuantity = (req,res,next)=>{
+  var id_product = req.body.id_product;
+  var quantity = parseInt(req.body.quantity);
+  console.log(id_product+" change "+quantity);
+  for(var i = 0;i<productSession.length;i++)
+  {
+    if(parseInt(productSession[i].id) == id_product)
+    {    
+      productSession[i].quantity = quantity;
+    }
+  }
+  
+  req.session.productSession = productSession;
+  console.log(productSession);
+  res.send("changed");
 }
 
 
