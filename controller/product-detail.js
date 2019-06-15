@@ -2,10 +2,11 @@ var express = require('express');
 var router = express.Router();
 var con = require('./../config/key');
 const product = require('./../model/product');
+const review = require('./../model/review');
 
 
 var productsAll = [];
-
+var id = -1;
 
 
 /* GET home page. */
@@ -24,16 +25,24 @@ router.getIndex = (req, res, next) => {
 };
 
 router.getDetail = (req, res, next) => {
-  let id = req.params.id;
-  let sql = 'select * from products where id = '+ id;
+  id = req.params.id;
+  let comment=[];
+  let sql = 'SELECT p.id,p.id_category,p.name,p.price,p.quantity,p.image,p.detail,p.status,(com.comments) as review,c.name,com.user_name as username from products p,comment com,categories c WHERE p.id='+id+' and p.id=com.id_product and c.id=p.id_category'
   console.log(sql);
   con.query(sql, function(err, results, fields){
+    if (err) throw err
     console.log(results[0]);
     var x = new product(results[0].id, results[0].name, results[0].price,results[0].quantity, results[0].detail,results[0].id_category,results[0].image, results[0].status);
-    res.render('product/product-detail',{product : x,user: req.user});
-    
-  });
+    results.forEach(element => {
+    var y=new review(element.review,element.username);
+    comment.push(y);
+    })
+    console.log(comment);
+    res.render('product/product-detail',{product : x,comment:comment,user: req.user}); 
+  }
+  );
 };
+
 router.order = (req,res,next) =>{
   var id_product = req.body.id_product;
   var note = "color:"+ req.body.color +", size: " + req.body.size;
@@ -104,13 +113,25 @@ router.demo = (req,res,next)=>{
     }
 
     res.send("added");
-
   });
-  
+};
 
   
-
-
   
+router.comment=(req, res, next) => {
+  console.log(req.body);
+  console.log(req.user);
+  var username=req.body.name;
+  let comment=req.body.review;
+  if (req.user != undefined)
+  {
+   username=req.user.name;
+  con.query('INSERT INTO comment (comments,id_product,user_name) VALUES ("'+comment+'",'+id+ ',"'+username+'")');
+  }
+  else
+{
+  con.query('INSERT INTO comment (comments,id_product,user_name) VALUES ("'+comment+'",'+id+',"'+username+'")');
+}
+res.redirect('back');
 }
 module.exports = router;
