@@ -2,24 +2,25 @@ var express = require('express');
 var router = express.Router();
 var con = require('../config/key');
 const order = require('./../model/order');
-
+const product = require('./../model/product')
 
 
 var ordersAll = [];
 var id_order = -1;
+var productAll =[];
 /* GET home page. */
 router.getIndex = (req, res, next) => {
   ordersAll = [];
   id_order = -1;
-  con.query('SELECT o.* FROM  orders o WHERE o.id_customer = ? ', [req.user.id], function (err, rows, fields) {
+  con.query('SELECT o.*,date(o.created_at) as date FROM  orders o WHERE o.id_customer = ? ', [req.user.id], function (err, rows, fields) {
     if (err) throw err
 
     rows.forEach(element => {
-      var x = new order(element.id, element.address, element.customer_name, element.order_name, element.sum_money, element.status);
+      var x = new order(element.id, element.address, element.customer_name, element.order_name, element.sum_money, element.status,element.date,element.id_customer);
       ordersAll.push(x);
 
     });
-
+    console.log(ordersAll);
     res.render('shopping/history-order', { user: req.user,orders :  ordersAll});
   });
 };
@@ -28,25 +29,36 @@ router.getIndex = (req, res, next) => {
 // 
 
 
-router.addOrder = async (req, res, next) => {
+router.detail = (req,res,next)=>
+{
+  productAll =[];
+  var id = req.params.id;
+  console.log(id);
+  if (ordersAll.length >=1)
+  if (ordersAll[0].id_customer == req.user.id)
+  {
+    con.query('SELECT p.*, od.id_order FROM order_detail od, products p WHERE p.id = od.id_product and od.id_order = ?', [id], function (err, rows, fields) {
+      if (err) throw err
+  
+      rows.forEach(element => {
+        id_order = element.id_order;
+        var x = new product(element.id, element.name, element.price, element.quantity, element.detail, element.id_category, element.image, element.status);
+        productAll.push(x);
+  
+      });
+      console.log(productAll);
 
-  var customer_name = req.body.customer_name;
-  var phone_number = req.body.phone_number;
-  var address = req.body.address + " " + req.body.quan + " " + req.body.tp;
-  if (id_order != -1) {
+      res.render('shopping/history-order-detail', { user: req.user, productAll: productAll });
+    });
 
-
-    let sql = 'UPDATE orders SET address = "' + address + '" , phoneNumber =  "' + phone_number + '", customer_name = "' + customer_name + '", status = ' + 0 + ' WHERE id = ' + id_order;
-    console.log(sql);
-    await con.query(sql);
-    sql = 'UPDATE order_detail SET status = ' + 0 + ' WHERE id_order = ' + id_order;
-    console.log(sql);
-    await con.query(sql);
-
-    res.redirect('back');
-  }
-  else {
-    res.redirect('/san-pham');
-  }
+}
+else
+{
+  res.redirect('/tai-khoan');
+}
+else{
+  res.redirect('/san-pham');
+}
+  
 }
 module.exports = router;

@@ -39,6 +39,7 @@ router.post('/gio-hang/change-quantity',shoppingCartController.changeQuantity);
 router.get('/gio-hang/:id', shoppingCartController.deleteProduct);
 router.post('/gio-hang',isLoggedIn,shoppingCartController.addOrder);
 router.get('/lich-su-mua-hang',isLoggedIn,historyorderController.getIndex);
+router.get('/chi-tiet-mua-hang/:id',isLoggedIn,historyorderController.detail);
 router.get('/dang-xuat',usersController.logout);
 router.get('/thong-tin-tai-khoan', isLoggedIn ,userDetailController.getDetail);
 router.post('/thong-tin-tai-khoan', isLoggedIn, userDetailController.update);
