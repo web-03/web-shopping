@@ -124,7 +124,7 @@
 							<%=product.price%> đ
 						</span>
 
-						<p class="stext-102 cl3 p-t-23">
+						<p class="stext-102 cl3 p-t-23" >
 							<%=product.description%> .
 						</p>
 						
@@ -1054,6 +1054,7 @@
 			var color = document.getElementById("color").value;
 			var size = document.getElementById("size").value;
 			var num = document.getElementById("num-product").value;
+			var price = document.getElementById("num-product").value;
 			console.log("ordered");
 			console.log(color);
 			console.log(size);
@@ -1065,7 +1066,8 @@
 				data: { id_product: id,
 						color: color,
 						size: size,
-						num_product: num },
+						num_product: num,
+						 },
 				success: function (response) {
 					
 
