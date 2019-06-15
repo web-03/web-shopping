@@ -220,109 +220,58 @@
 				<div class="tab01">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
-						<li class="nav-item p-b-10">
-							<a class="nav-link active" data-toggle="tab" href="#description" role="tab">Mô Tả</a>
-						</li>
+
 
 						<li class="nav-item p-b-10">
-							<a class="nav-link" data-toggle="tab" href="#information" role="tab">Thông tin sản phẩm</a>
-						</li>
-
-						<li class="nav-item p-b-10">
-							<a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Nhận xét (1)</a>
+							<a class="nav-link active" data-toggle="tab" href="#reviews" role="tab">Nhận xét (<%=comment.length%>)</a>
 						</li>
 					</ul>
 
 					<!-- Tab panes -->
 					<div class="tab-content p-t-43">
-						<!-- - -->
-						<div class="tab-pane fade show active" id="description" role="tabpanel">
-							<div class="how-pos2 p-lr-15-md">
-								<p class="stext-102 cl6">
-									Đây là sản phẩm mới của mùa xuân năm nay. Lọt vào top collection thu đông của pháp. Thiết kế bởi DJ KAi. Dáng áo ôm người giúp thể hiện được vẻ nam tính, lịch lãm.
-								</p>
-							</div>
-						</div>
+				
+
 
 						<!-- - -->
-						<div class="tab-pane fade" id="information" role="tabpanel">
-							<div class="row">
-								<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
-									<ul class="p-lr-28 p-lr-15-sm">
-										<li class="flex-w flex-t p-b-7">
-											<span class="stext-102 cl3 size-205">
-												Cân nặng
-											</span>
-
-											<span class="stext-102 cl6 size-206">
-												0.79 kg
-											</span>
-										</li>
-
-										<li class="flex-w flex-t p-b-7">
-											<span class="stext-102 cl3 size-205">
-												Kích thước
-											</span>
-
-											<span class="stext-102 cl6 size-206">
-												110 x 33 x 100 cm
-											</span>
-										</li>
-
-										<li class="flex-w flex-t p-b-7">
-											<span class="stext-102 cl3 size-205">
-												Chất liệu
-											</span>
-
-											<span class="stext-102 cl6 size-206">
-												60% cotton
-											</span>
-										</li>
-
-										<li class="flex-w flex-t p-b-7">
-											<span class="stext-102 cl3 size-205">
-												Màu sắc
-											</span>
-
-											<span class="stext-102 cl6 size-206">
-												Đen , Xanh lá , Xám , Xanh dương , Đỏ , Trắng
-											</span>
-										</li>
-
-										<li class="flex-w flex-t p-b-7">
-											<span class="stext-102 cl3 size-205">
-												Size
-											</span>
-
-											<span class="stext-102 cl6 size-206">
-												XL, L, M, S
-											</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-
-						<!-- - -->
-						<div class="tab-pane fade" id="reviews" role="tabpanel" method='GET'> 
+						<div class="tab-pane fade show active" id="reviews" role="tabpanel" method='GET'> 
 							<div class="row">
 								<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
 									<div class="p-b-30 m-lr-15-sm">
 										<!-- Review -->
+										<div id="page">
+										
 										<% for(var i=0; i< comment.length;i++){%>
-										<div class="flex-w flex-t p-b-68">
+										<div class="list-group" >
+										
+										<div class="flex-w flex-t p-b-68 active">
 											<div class="size-100">
 
 													<span class="mtext-107 cl2 p-r-20">
 														<%=comment[i].username%>
 													</span>
 								
-												<input class="stext-102 cl6"  >	
+												<div class="stext-102 cl6"  >	
 														<%=comment[i].comment%>	
-											</input>
+												</div>
 											</div>
 										</div>
-										<%}%>
+										
+									</div>
+									<%}%>
+
+									</div>
+										<nav aria-label="Page navigation">
+												<ul class="pagination">
+												  <li id="previous-page">
+													<a href="javascript:void(0)" aria-label="Previous">
+													  <span aria-hidden="true">&laquo;</span>
+													</a>
+												  </li>
+												
+												</ul>
+										</nav>
+										
+										
 										
 										<!-- Add review -->
 										<form class="w-full" method="POST" action="/chi-tiet-san-pham/comment">
@@ -1078,6 +1027,70 @@
 			});
 		}
 	</script>
+	<script>
+	'use strict';
+	var numberOfItems = <%=comment.length%>;
+	var limitPerPage = 3;
+	$('#page .list-group:gt(' + (limitPerPage-1) + ')').hide();
+	var totalPages = Math.ceil(numberOfItems / limitPerPage);
+	$(".pagination").append("<li class='current-page active'><a href='javascript:void(0)'>" + 1 + "</a></li>"); // Add first page marker
+	for (var i = 2; i <= totalPages; i++) {
+  	$(".pagination").append("<li class='current-page'><a href='javascript:void(0)'>" + i + "</a></li>"); // Insert page number into pagination tabs
+	}
+	$(".pagination").append("<li id='next-page' ><a href='javascript:void(0)' aria-label=Next><span aria-hidden=true>&raquo;</span></a></li>");
+	$(".pagination li.current-page").on("click", function() {
+		if ($(this).hasClass('active')) {
+			return false;} 
+		else {
+		var currentpage=$(this).index();
+		alert(currentpage);
+		$(".pagination li").removeClass('active'); 
+		$(this).addClass('active');
+		$("#page .list-group").hide();
+		var grandTotal = limitPerPage * currentpage;
+		for (var i = grandTotal - limitPerPage; i < grandTotal; i++) {
+      	$("#page .list-group:eq(" + i + ")").show();
+		}}
+	});
+	$("#next-page").on("click", function() {
+  var currentPage = $(".pagination li.active").index();
+ 
+  if (currentPage === totalPages) {
+    return false; 
+  } else {
+    currentPage++; 
+    $(".pagination li").removeClass('active'); 
+    $("#page .list-group").hide();
+    var grandTotal = limitPerPage * currentPage; 
 
+    
+    for (var i = grandTotal - limitPerPage; i < grandTotal; i++) {
+      $("#page .list-group:eq(" + i + ")").show(); 
+    }
+
+    $(".pagination li.current-page:eq(" + (currentPage - 1) + ")").addClass('active');
+  }
+});
+
+$("#previous-page").on("click", function() {
+  var currentPage = $(".pagination li.active").index(); 
+  if (currentPage === 1) {
+    return false; 
+  } else {
+    currentPage--; 
+    $(".pagination li").removeClass('active'); 
+    $("#page .list-group").hide(); 
+    var grandTotal = limitPerPage * currentPage; 
+
+  
+    for (var i = grandTotal - limitPerPage; i < grandTotal; i++) {
+      $("#page .list-group:eq(" + i + ")").show(); 
+    }
+
+    $(".pagination li.current-page:eq(" + (currentPage - 1) + ")").addClass('active'); 
+  }
+});
+
+	</script>
 </body>
 </html>
