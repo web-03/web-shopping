@@ -27,21 +27,38 @@ router.getIndex = (req, res, next) => {
 router.getDetail = (req, res, next) => {
   id = req.params.id;
   let comment=[];
-  let sql = 'SELECT p.id,p.id_category,p.name,p.price,p.quantity,p.image,p.detail,p.status,(com.comments) as review,c.name,com.user_name as username from products p,comment com,categories c WHERE p.id='+id+' and p.id=com.id_product and c.id=p.id_category'
+  let category=[];
+  let relatedproduct=[];
+  let sql =  'select * from products where id = '+ id;
   console.log(sql);
   con.query(sql, function(err, results, fields){
     if (err) throw err
     console.log(results[0]);
     var x = new product(results[0].id, results[0].name, results[0].price,results[0].quantity, results[0].detail,results[0].id_category,results[0].image, results[0].status);
-    results.forEach(element => {
-    var y=new review(element.review,element.username);
-    comment.push(y);
+    category.push(results[0].id_category);
+   
+  
+    con.query('SELECT p.id,com.comments as comment,com.user_name as username from products p,comment com where p.id='+id+' and p.id=com.id_product',function(err, rows, fields){
+      if (err) throw err
+      rows.forEach(element=>{
+        var z=new review(element.comment,element.username);
+        comment.push(z);
     })
     console.log(comment);
-    res.render('product/product-detail',{product : x,comment:comment,user: req.user}); 
-  }
-  );
-};
+    con.query('select * from products where id_category='+category[0]+' ORDER BY RAND() LIMIT 5',function(err, rows, fields){
+      if (err) throw err
+      rows.forEach(element=>{
+        var y=new product(element.id, element.name, element.price,element.quantity, element.detail,element.id_category,element.image, element.status);
+        relatedproduct.push(y);
+      })
+    if(relatedproduct.length==1) relatedproduct=[];
+      
+    console.log(relatedproduct);
+    res.render('product/product-detail',{product : x,comment:comment,relatedproduct:relatedproduct,user: req.user}); 
+  })
+  });
+});
+}
 
 router.order = (req,res,next) =>{
   var id_product = req.body.id_product;

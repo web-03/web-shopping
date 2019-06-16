@@ -34,6 +34,7 @@
 	<link rel="stylesheet" type="text/css" href="/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/css/main.css">
 <!--===============================================================================================-->
+
 </head>
 <body class="animsition">
 	
@@ -262,11 +263,7 @@
 									</div>
 										<nav aria-label="Page navigation">
 												<ul class="pagination">
-												  <li id="previous-page">
-													<a href="javascript:void(0)" aria-label="Previous">
-													  <span aria-hidden="true">&laquo;</span>
-													</a>
-												  </li>
+												  
 												
 												</ul>
 										</nav>
@@ -329,25 +326,26 @@
 			<!-- Slide2 -->
 			<div class="wrap-slick2">
 				<div class="slick2">
+						<% for(var i=0; i< relatedproduct.length;i++){%>
 					<div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
 						<!-- Block2 -->
 						<div class="block2">
 							<div class="block2-pic hov-img0">
-								<img src="/images/product-01.jpg" alt="IMG-PRODUCT">
+								<img src="<%=relatedproduct[i].image%>" alt="IMG-PRODUCT">
 
-								<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+								<!-- <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
 									Xem nhanh
-								</a>
+								</a> -->
 							</div>
 
 							<div class="block2-txt flex-w flex-t p-t-14">
 								<div class="block2-txt-child1 flex-col-l ">
-									<a href="/chi-tiet-san-pham" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-										Áo sơ miEsprit Ruffle 
+									<a href="/chi-tiet-san-pham/<%=relatedproduct[i].id%>" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+									<%=relatedproduct[i].name%>
 									</a>
 
 									<span class="stext-105 cl3">
-										379.000 đ
+									<%=relatedproduct[i].price%>
 									</span>
 								</div>
 
@@ -359,231 +357,8 @@
 								</div>
 							</div>
 						</div>
-					</div>
-
-					<div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
-						<!-- Block2 -->
-						<div class="block2">
-							<div class="block2-pic hov-img0">
-								<img src="/images/product-02.jpg" alt="IMG-PRODUCT">
-
-								<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-									Xem nhanh
-								</a>
-							</div>
-
-							<div class="block2-txt flex-w flex-t p-t-14">
-								<div class="block2-txt-child1 flex-col-l ">
-									<a href="/chi-tiet-san-pham" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-										Sơ mi Herschel 
-									</a>
-
-									<span class="stext-105 cl3">
-										930.000 đ
-									</span>
-								</div>
-
-								<div class="block2-txt-child2 flex-r p-t-3">
-									<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-										<img class="icon-heart1 dis-block trans-04" src="/images/icons/icon-heart-01.png" alt="ICON">
-										<img class="icon-heart2 dis-block trans-04 ab-t-l" src="/images/icons/icon-heart-02.png" alt="ICON">
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
-						<!-- Block2 -->
-						<div class="block2">
-							<div class="block2-pic hov-img0">
-								<img src="/images/product-03.jpg" alt="IMG-PRODUCT">
-
-								<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-									Xem nhanh
-								</a>
-							</div>
-
-							<div class="block2-txt flex-w flex-t p-t-14">
-								<div class="block2-txt-child1 flex-col-l ">
-									<a href="/chi-tiet-san-pham" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-										Sơ mi kẻ sọc 
-									</a>
-
-									<span class="stext-105 cl3">
-										350.000 đ
-									</span>
-								</div>
-
-								<div class="block2-txt-child2 flex-r p-t-3">
-									<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-										<img class="icon-heart1 dis-block trans-04" src="/images/icons/icon-heart-01.png" alt="ICON">
-										<img class="icon-heart2 dis-block trans-04 ab-t-l" src="/images/icons/icon-heart-02.png" alt="ICON">
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
-						<!-- Block2 -->
-						<div class="block2">
-							<div class="block2-pic hov-img0">
-								<img src="/images/product-04.jpg" alt="IMG-PRODUCT">
-
-								<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-									Xem nhanh
-								</a>
-							</div>
-
-							<div class="block2-txt flex-w flex-t p-t-14">
-								<div class="block2-txt-child1 flex-col-l ">
-									<a href="/chi-tiet-san-pham" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-										Áo khoác dài cổ điển
-									</a>
-
-									<span class="stext-105 cl3">
-										2.350.000 đ
-									</span>
-								</div>
-
-								<div class="block2-txt-child2 flex-r p-t-3">
-									<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-										<img class="icon-heart1 dis-block trans-04" src="/images/icons/icon-heart-01.png" alt="ICON">
-										<img class="icon-heart2 dis-block trans-04 ab-t-l" src="/images/icons/icon-heart-02.png" alt="ICON">
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
-						<!-- Block2 -->
-						<div class="block2">
-							<div class="block2-pic hov-img0">
-								<img src="/images/product-05.jpg" alt="IMG-PRODUCT">
-
-								<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-									Xem nhanh
-								</a>
-							</div>
-
-							<div class="block2-txt flex-w flex-t p-t-14">
-								<div class="block2-txt-child1 flex-col-l ">
-									<a href="/chi-tiet-san-pham" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-										Áo sơ mi Pocket Jumper
-									</a>
-
-									<span class="stext-105 cl3">
-										$1.599.000 đ
-									</span>
-								</div>
-
-								<div class="block2-txt-child2 flex-r p-t-3">
-									<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-										<img class="icon-heart1 dis-block trans-04" src="/images/icons/icon-heart-01.png" alt="ICON">
-										<img class="icon-heart2 dis-block trans-04 ab-t-l" src="/images/icons/icon-heart-02.png" alt="ICON">
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
-						<!-- Block2 -->
-						<div class="block2">
-							<div class="block2-pic hov-img0">
-								<img src="/images/product-06.jpg" alt="IMG-PRODUCT">
-
-								<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-									Xem nhanh
-								</a>
-							</div>
-
-							<div class="block2-txt flex-w flex-t p-t-14">
-								<div class="block2-txt-child1 flex-col-l ">
-									<a href="/chi-tiet-san-pham" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-										Đồng hồ Vintage Inspired  
-									</a>
-
-									<span class="stext-105 cl3">
-										2.499.000 đ
-									</span>
-								</div>
-
-								<div class="block2-txt-child2 flex-r p-t-3">
-									<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-										<img class="icon-heart1 dis-block trans-04" src="/images/icons/icon-heart-01.png" alt="ICON">
-										<img class="icon-heart2 dis-block trans-04 ab-t-l" src="/images/icons/icon-heart-02.png" alt="ICON">
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
-						<!-- Block2 -->
-						<div class="block2">
-							<div class="block2-pic hov-img0">
-								<img src="/images/product-07.jpg" alt="IMG-PRODUCT">
-
-								<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-									Xem nhanh
-								</a>
-							</div>
-
-							<div class="block2-txt flex-w flex-t p-t-14">
-								<div class="block2-txt-child1 flex-col-l ">
-									<a href="/chi-tiet-san-pham" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-										Áo sơ mi Stretch Cotton
-									</a>
-
-									<span class="stext-105 cl3">
-										2.675.000 đ
-									</span>
-								</div>
-
-								<div class="block2-txt-child2 flex-r p-t-3">
-									<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-										<img class="icon-heart1 dis-block trans-04" src="/images/icons/icon-heart-01.png" alt="ICON">
-										<img class="icon-heart2 dis-block trans-04 ab-t-l" src="/icons/icon-heart-02.png" alt="ICON">
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
-						<!-- Block2 -->
-						<div class="block2">
-							<div class="block2-pic hov-img0">
-								<img src="/images/product-08.jpg" alt="IMG-PRODUCT">
-
-								<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-									Xem nhanh
-								</a>
-							</div>
-
-							<div class="block2-txt flex-w flex-t p-t-14">
-								<div class="block2-txt-child1 flex-col-l ">
-									<a href="/chi-tiet-san-pham" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-										Áo thun Metallic Printed
-									</a>
-
-									<span class="stext-105 cl3">
-										299.000 đ
-									</span>
-								</div>
-
-								<div class="block2-txt-child2 flex-r p-t-3">
-									<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-										<img class="icon-heart1 dis-block trans-04" src="/images/icons/icon-heart-01.png" alt="ICON">
-										<img class="icon-heart2 dis-block trans-04 ab-t-l" src="/images/icons/icon-heart-02.png" alt="ICON">
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
+					</div>	
+					<%}%>
 				</div>
 			</div>
 		</div>
@@ -1033,10 +808,14 @@
 	var limitPerPage = 3;
 	$('#page .list-group:gt(' + (limitPerPage-1) + ')').hide();
 	var totalPages = Math.ceil(numberOfItems / limitPerPage);
-	$(".pagination").append("<li class='current-page active'><a href='javascript:void(0)'>" + 1 + "</a></li>"); // Add first page marker
+	if(numberOfItems!=0)
+	$(".pagination").append("<li id='previous-page'><a href='javascript:void(0)' aria-label='Previous;><span aria-hidden='true'>&laquo;</span></a></li>");
+	if(numberOfItems!=0){
+	$(".pagination").append("<li class='current-page active'><a href='javascript:void(0)'>" + 1 + "</a></li>");} // Add first page marker
 	for (var i = 2; i <= totalPages; i++) {
   	$(".pagination").append("<li class='current-page'><a href='javascript:void(0)'>" + i + "</a></li>"); // Insert page number into pagination tabs
 	}
+	if(numberOfItems!=0)
 	$(".pagination").append("<li id='next-page' ><a href='javascript:void(0)' aria-label=Next><span aria-hidden=true>&raquo;</span></a></li>");
 	$(".pagination li.current-page").on("click", function() {
 		if ($(this).hasClass('active')) {
