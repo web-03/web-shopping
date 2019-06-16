@@ -12,7 +12,8 @@ var userDetailController = require('../controller/user-detail');
 var test = require('../controller/categories');
 var homeController = require('../controller/home');
 const historyorderController = require('../controller/history-order');
-// var indexuserController=require('../controller/indexuser');
+const forgotpasswordController = require('../controller/forgot_password');
+const changepasswordController = require('../controller/change_password');
 // var updateInfUserController=require('../controller/updateInfUser');
 // var historyorderController=require('../controller/historyorder');
 
@@ -44,6 +45,10 @@ router.get('/chi-tiet-mua-hang/:id',isLoggedIn,historyorderController.detail);
 router.get('/dang-xuat',usersController.logout);
 router.get('/thong-tin-tai-khoan', isLoggedIn ,userDetailController.getDetail);
 router.post('/thong-tin-tai-khoan', isLoggedIn, userDetailController.update);
+router.get('/quen-mat-khau' ,forgotpasswordController.getIndex);
+router.post('/quen-mat-khau' ,forgotpasswordController.forgotpass);
+router.get('/doi-mat-khau' ,isLoggedIn,changepasswordController.getIndex);
+router.post('/doi-mat-khau' ,isLoggedIn,changepasswordController.changepassword);
 //router.get('/chi-tiet-san-pham',productDetailController.getIndex);
 //router.get('chi-tiet-san-pham/:id',productController.getDetail);
 
