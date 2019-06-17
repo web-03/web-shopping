@@ -7,8 +7,9 @@ var productsAll = [];
 
 
 var categoriesAll = [];
-
-
+var count = -1;
+const limit = 3;
+var sumpage = -1;
 
 /* GET home page. and get all product */
 router.getIndex = (req, res, next) => {
@@ -21,9 +22,7 @@ router.getIndex = (req, res, next) => {
   {
     index = 1;
   }
-  var count = -1;
-  const limit = 3;
-  var sumpage = -1;
+
   console.log(from);
   console.log(to);
   console.log(index);
@@ -32,8 +31,7 @@ router.getIndex = (req, res, next) => {
   
     sumpage = Math.ceil(count / limit);
     
-  }
-  )
+  })
   con.query('select * from categories WHERE status = 1' , function (err, rows, fields) {
     if (err) throw err
   
@@ -87,6 +85,12 @@ router.getSearch = (req, res, next) => {
   console.log(name);
   
   if (name == undefined){
+    con.query('select count(id) as count  from products where status = 1',function(err,rows,fields){
+      count = rows[0].count;
+    
+      sumpage = Math.ceil(count / limit);
+      
+    })
     con.query('select * from products WHERE status = 1', function (err, rows, fields) {
       if (err) throw err
     
@@ -94,10 +98,16 @@ router.getSearch = (req, res, next) => {
         var x = new product(element.id, element.name, element.price,element.quantity, element.detail,element.id_category,element.image, element.status);
         productsAll.push(x);
       })
-      res.render('product/product',{products : productsAll, categories : categoriesAll,user: req.user,count: count});
+      res.render('product/product',{products : productsAll, categories : categoriesAll,user: req.user,count: sumpage});
     });
   }
   else{
+    con.query('select count(id) as count  from products where status = 1 and lower(name) like lower("%'+name+'%")',function(err,rows,fields){
+      count = rows[0].count;
+    
+      sumpage = Math.ceil(count / limit);
+      
+    })
     con.query('select * from products WHERE status = 1 and lower(name) like lower("%'+name+'%")' , function (err, rows, fields) {
       if (err) throw err
     
@@ -105,7 +115,7 @@ router.getSearch = (req, res, next) => {
         var x = new product(element.id, element.name, element.price,element.quantity, element.detail,element.id_category,element.image, element.status);
         productsAll.push(x);
       })
-      res.render('product/product',{products : productsAll, categories : categoriesAll,user: req.user,count: count});
+      res.render('product/product',{products : productsAll, categories : categoriesAll,user: req.user,count: sumpage});
     });
   }
   
