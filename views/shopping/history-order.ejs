@@ -64,6 +64,11 @@
 													<i class="ft-search"></i> Đang giao
 												</button>
 											</div>
+											<div class="col-md-2">
+													<button type="submit" onclick="just()" class="btn btn-sm btn-warning">
+														<i class="ft-search"></i> Đang chờ
+													</button>
+												</div>
 	
 											
 										</div>
@@ -105,7 +110,7 @@
 											<table id="delivering" class="table table-bordered mb-0" style="display:none;">
 												<thead>
 													<tr>
-															<th>Ngày2</th>
+															<th>Ngày</th>
 																<th>Mã đơn hàng</th>
 																<th>Tên khách hàng</th>
 																<th>Địa chỉ</th>
@@ -134,7 +139,37 @@
 												</tbody>
 											</table>
 	
-											
+											<table id="just" class="table table-bordered mb-0" style="display:none;">
+													<thead>
+														<tr>
+																<th>Ngày</th>
+																	<th>Mã đơn hàng</th>
+																	<th>Tên khách hàng</th>
+																	<th>Địa chỉ</th>
+				
+																	<th>Tổng tiền</th>
+																	<th>Trạng thái</th>
+														</tr>
+													</thead>
+													<tbody>
+														<% for(var i=0; i< orders.length; i++){ %>
+															<% if(orders[i].status == "0"){ %>
+															<tr>
+																	<td><%= orders[i].create %></td>
+																	<td><a href="/chi-tiet-mua-hang/<%= orders[i].id%>"><%= orders[i].orderName %></a></td>
+																	<td><%= orders[i].customerName %></td>
+																	<td><%= orders[i].address %></td>
+																	<td><%= orders[i].sumMoney %></td>
+																<td>
+																	<div class="tag tag-warning">Đang chờ</div>
+																	
+																</td>
+																 
+															</tr>
+															<% }%>
+															<% }%>
+													</tbody>
+												</table>
 										</div>
 									</div>
 								</div>
