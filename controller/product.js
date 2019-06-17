@@ -16,10 +16,25 @@ router.getIndex = (req, res, next) => {
   categoriesAll = [];
   var from = req.query.from;
   var to = req.query.to;
+  var index = req.query.page;
+  if(index == undefined)
+  {
+    index = 1;
+  }
+  var count = -1;
+  const limit = 3;
+  var sumpage = -1;
   console.log(from);
   console.log(to);
- 
-  con.query('select * from categories WHERE status = 1', function (err, rows, fields) {
+  console.log(index);
+  con.query('select count(id) as count  from products where status = 1',function(err,rows,fields){
+    count = rows[0].count;
+  
+    sumpage = Math.ceil(count / limit);
+    
+  }
+  )
+  con.query('select * from categories WHERE status = 1' , function (err, rows, fields) {
     if (err) throw err
   
     rows.forEach(element => {
@@ -28,36 +43,39 @@ router.getIndex = (req, res, next) => {
     })
   });
   if (from == undefined && to == undefined){
-    con.query('select * from products WHERE status = 1', function (err, rows, fields) {
+    con.query('select * from products WHERE status = 1 limit ?,?',[(index-1)*limit,limit], function (err, rows, fields) {
       if (err) throw err
     
       rows.forEach(element => {
         var x = new product(element.id, element.name, element.price,element.quantity, element.detail,element.id_category,element.image, element.status);
         productsAll.push(x);
       })
-      res.render('product/product',{products : productsAll, categories : categoriesAll,user: req.user});
+      
+      res.render('product/product',{products : productsAll, categories : categoriesAll,user: req.user,count: sumpage});
     });
   }
   else if (from == undefined ){
-    con.query('select * from products WHERE status = 1 and price > '+to , function (err, rows, fields) {
+    con.query('select * from products WHERE status = 1 and price > '+to +'limit ?,?',[(index-1)*limit,limit], function (err, rows, fields) {
       if (err) throw err
     
       rows.forEach(element => {
         var x = new product(element.id, element.name, element.price,element.quantity, element.detail,element.id_category,element.image, element.status);
         productsAll.push(x);
       })
-      res.render('product/product',{products : productsAll, categories : categoriesAll,user: req.user});
+      console.log("zz");
+      console.log(sumpage);
+      res.render('product/product',{products : productsAll, categories : categoriesAll,user: req.user,count: sumpage});
     });
   }
   else {
-    con.query('select * from products WHERE status = 1 and price >  '+from+' and price < '+to, function (err, rows, fields) {
+    con.query('select * from products WHERE status = 1 and price >  '+from+' and price < '+to+' limit ?,?',[(index-1)*limit,limit], function (err, rows, fields) {
       if (err) throw err
     
       rows.forEach(element => {
         var x = new product(element.id, element.name, element.price,element.quantity, element.detail,element.id_category,element.image, element.status);
         productsAll.push(x);
       })
-      res.render('product/product',{products : productsAll, categories : categoriesAll,user: req.user});
+      res.render('product/product',{products : productsAll, categories : categoriesAll,user: req.user,count: sumpage});
     });
   }
   
@@ -76,7 +94,7 @@ router.getSearch = (req, res, next) => {
         var x = new product(element.id, element.name, element.price,element.quantity, element.detail,element.id_category,element.image, element.status);
         productsAll.push(x);
       })
-      res.render('product/product',{products : productsAll, categories : categoriesAll,user: req.user});
+      res.render('product/product',{products : productsAll, categories : categoriesAll,user: req.user,count: count});
     });
   }
   else{
@@ -87,7 +105,7 @@ router.getSearch = (req, res, next) => {
         var x = new product(element.id, element.name, element.price,element.quantity, element.detail,element.id_category,element.image, element.status);
         productsAll.push(x);
       })
-      res.render('product/product',{products : productsAll, categories : categoriesAll,user: req.user});
+      res.render('product/product',{products : productsAll, categories : categoriesAll,user: req.user,count: count});
     });
   }
   

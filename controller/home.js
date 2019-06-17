@@ -15,7 +15,7 @@ router.getIndex = (req, res, next) => {
   productsAll = [];
   categoriesAll = [];
   console.log(req.user);
-  con.query('select * from categories where status = 1', function (err, rows, fields) {
+  con.query('select * from categories where status = 1 ', function (err, rows, fields) {
     if (err) throw err
   
     rows.forEach(element => {
@@ -23,7 +23,7 @@ router.getIndex = (req, res, next) => {
       categoriesAll.push(x);
     })
   });
-  con.query('select * from products where status = 1', function (err, rows, fields) {
+  con.query('select * from products where status = 1 order by rand() limit 5', function (err, rows, fields) {
     if (err) throw err
   
     rows.forEach(element => {
