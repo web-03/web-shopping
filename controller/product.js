@@ -41,6 +41,7 @@ router.getIndex = (req, res, next) => {
     })
   });
   if (from == undefined && to == undefined){
+    
     con.query('select * from products WHERE status = 1 limit ?,?',[(index-1)*limit,limit], function (err, rows, fields) {
       if (err) throw err
     
@@ -53,6 +54,12 @@ router.getIndex = (req, res, next) => {
     });
   }
   else if (from == undefined ){
+    con.query('select count(id) as count  from products where status = 1 and price > '+to,function(err,rows,fields){
+      count = rows[0].count;
+    
+      sumpage = Math.ceil(count / limit);
+      
+    })
     con.query('select * from products WHERE status = 1 and price > '+to +'limit ?,?',[(index-1)*limit,limit], function (err, rows, fields) {
       if (err) throw err
     
@@ -66,6 +73,12 @@ router.getIndex = (req, res, next) => {
     });
   }
   else {
+    con.query('select count(id) as count  from products where status = 1 price >  '+from+' and price < '+to,function(err,rows,fields){
+      count = rows[0].count;
+    
+      sumpage = Math.ceil(count / limit);
+      
+    })
     con.query('select * from products WHERE status = 1 and price >  '+from+' and price < '+to+' limit ?,?',[(index-1)*limit,limit], function (err, rows, fields) {
       if (err) throw err
     
