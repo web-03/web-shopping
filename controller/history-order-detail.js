@@ -14,12 +14,12 @@ router.getIndex = (req, res, next) => {
   orderDetailAll = [];
   productAll = [];
   id_order = -1;
-  con.query('SELECT p.*, od.id_order FROM order_detail od, products p WHERE od.status = 1 AND od.id_customer = ? AND p.id = od.id_product', [req.user.id], function (err, rows, fields) {
+  con.query('SELECT p.*, od.id_order,od.quantity as quantity2 FROM order_detail od, products p WHERE od.status = 1 AND od.id_customer = ? AND p.id = od.id_product', [req.user.id], function (err, rows, fields) {
     if (err) throw err
 
     rows.forEach(element => {
       id_order = element.id_order;
-      var x = new product(element.id, element.name, element.price, element.quantity, element.detail, element.id_category, element.image, element.status);
+      var x = new product(element.id, element.name, element.price, element.quantity2, element.detail, element.id_category, element.image, element.status);
       productAll.push(x);
 
     });

@@ -37,12 +37,12 @@ router.detail = (req,res,next)=>
   if (ordersAll.length >=1)
   if (ordersAll[0].id_customer == req.user.id)
   {
-    con.query('SELECT p.*, od.id_order FROM order_detail od, products p WHERE p.id = od.id_product and od.id_order = ?', [id], function (err, rows, fields) {
+    con.query('SELECT p.*, od.id_order,od.quantity as quantity2 FROM order_detail od, products p WHERE p.id = od.id_product and od.id_order = ?', [id], function (err, rows, fields) {
       if (err) throw err
   
       rows.forEach(element => {
         id_order = element.id_order;
-        var x = new product(element.id, element.name, element.price, element.quantity, element.detail, element.id_category, element.image, element.status);
+        var x = new product(element.id, element.name, element.price, element.quantity2, element.detail, element.id_category, element.image, element.status);
         productAll.push(x);
   
       });
