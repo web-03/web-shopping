@@ -100,7 +100,7 @@ router.addOrder = async (req, res, next) => {
             con.query(sql);
             console.log(sql)
             for (var i = 0; i < productSession.length; i++) {
-              sql = 'INSERT INTO order_detail (id_product,status,note,id_order,id_customer,quantity) VALUES (' + productAll[i].id + ',1, "' + productSession[i].note + '" ,' + id_order + ',' + id_customer + ',' + productAll[i].quantity + ')';
+              sql = 'INSERT INTO order_detail (id_product,status,note,id_order,id_customer,quantity) VALUES (' + productAll[i].id + ',1, "' + productSession[i].note + '" ,' + id_order + ',' + id_customer + ',' + productSession[i].quantity + ')';
               console.log(sql)
               con.query(sql);
               sql = 'UPDATE products SET quantity= ' + (productAll[i].remainQuantity - productSession[i].quantity) + ' where id =' + productAll[i].id;
