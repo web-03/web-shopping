@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" data-textdirection="ltr" class="loading">
+
+<head>
+    <title>Danh sách gian hàng</title>
+    <%  include ./../emlements/css %>
+</head>
+
+<body data-open="click" data-menu="vertical-menu" data-col="2-columns"
+    class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar">
+    <nav class="header-navbar navbar navbar-with-menu navbar-fixed-top navbar-semi-light bg-gradient-x-grey-blue">
+        <%  include ./../emlements/defaultHeader %>
+    </nav>
+    <%  include ./../emlements/defaultMenu %>
+    <div class="app-content content container-fluid">
+        <div class="content-wrapper">
+            <div class="content-body">
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Sửa thông tin gian hàng</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="gian-hang/taomoi" method="POST">
+                                    <input type="hidden" class="form-control" placeholder="id" id="id" name="id">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="recipient-name" class="col-form-label">Tên:</label>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" placeholder="Tên gian hàng"
+                                                    id="name" name="name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="message-text" class="col-form-label">Mô tả:</label>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" placeholder="Mô tả"
+                                                    id="description" name="description">
+                                            </div>
+                                        </div>
+                                    </div>
+                               
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                    <button type="submit" class="btn btn-primary">Lưu</button>
+                                </div>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="form-group row">
+                                    <div class="col-md-2">
+                                        <input type="text" class="form-control input-sm" id="myInput" onkeyup="myFunction()" placeholder="Tìm kiếm theo tên" title="Tìm kiếm theo tên">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button data-toggle="modal" data-target="#exampleModal"
+                                            data-original-title="Sửa thông tin" type="button"
+                                            class="btn btn-icon btn-primary btn-sm show-tooltip"><i
+                                                class="ft-plus-circle"></i></button>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="card-body collapse in">
+                                    <div class="table-responsive">
+                                        <table id="table" class="table table-bordered mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Id</th>
+                                                    <th>Tên</th>
+                                                    <th>Mô tả</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Xóa</th>
+                                                    <th>Sửa</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                
+                                                <% for(var i=0; i< categories.length; i++){ %>
+                                                <tr>
+                                                    <td><%= categories[i].id %></td>
+                                                    <td><%= categories[i].name %></td>
+                                                    <td><%= categories[i].description %></td>
+                                                    <td><% if(categories[i].status == "1"){ %>
+                                                        <div class="tag tag-success">Hoạt động</div>
+                                                        <% } else{%>
+                                                        <div class="tag tag-danger">Đang khoá</div>
+                                                        <% }%></td>
+                                                    <td>
+                                                        <% if(categories[i].status == "1"){ %>
+                                                        <button
+                                                            onclick="location.href='gian-hang/chuyen-trang-thai/<%=categories[i].id%>'"
+                                                            type="button" class="btn mr-1 mb-1 btn-danger btn-sm"><i
+                                                                class="fa fa-times"></i></button>
+                                                        <% } else{%>
+                                                        <button
+                                                            onclick="location.href='gian-hang/chuyen-trang-thai/<%=categories[i].id%>'"
+                                                            type="button" class="btn mr-1 mb-1 btn-primary btn-sm"><i
+                                                                class="fa fa-check"></i></button>
+                                                        <% }%>
+                                                    </td>
+                                                    <td>
+
+                                                        <button data-toggle="modal" data-target="#exampleModal"
+                                                            data-original-title="Sửa thông tin" type="button"
+                                                            class="btn btn-icon btn-primary btn-sm show-tooltip abc"><i
+                                                                class="fa fa-pencil"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <% }%>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%  include ./../emlements/defaultFooter %>
+    <%  include ./../emlements/script %>
+    <script>
+        var rIndex, table = document.getElementById("table");
+        $(".abc").click(function () {
+            for (var i = 1; i < table.rows.length; i++) {
+                table.rows[i].onclick = function () {
+                    // get the seected row index
+                    rIndex = this.rowIndex;
+                    document.getElementById("id").value = this.cells[0].innerHTML;
+                    document.getElementById("name").value = this.cells[1].innerHTML;
+                    document.getElementById("description").value = this.cells[2].innerHTML;
+                };
+            }
+        });
+        function changeStatus(id) {
+            alert(id);
+        }
+        function myFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("table");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+                }       
+            }
+        }
+        function filterStatus() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("table");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[3];
+                if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+                }       
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

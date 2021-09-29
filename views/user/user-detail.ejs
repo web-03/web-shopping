@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>User-detail</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="/images/icons/favicon.png"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/fonts/linearicons-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/vendor/slick/slick.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/vendor/MagnificPopup/magnific-popup.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/css/main.css">
+<!--===============================================================================================-->
+	<style type="text/css">
+		.btn {
+			-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+			-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+			box-shadow:inset 0px 1px 0px 0px #ffffff;
+			background-color:#ededed;
+			-webkit-border-top-left-radius:31px;
+			-moz-border-radius-topleft:31px;
+			border-top-left-radius:31px;
+			-webkit-border-top-right-radius:31px;
+			-moz-border-radius-topright:31px;
+			border-top-right-radius:31px;
+			-webkit-border-bottom-right-radius:31px;
+			-moz-border-radius-bottomright:31px;
+			border-bottom-right-radius:31px;
+			-webkit-border-bottom-left-radius:31px;
+			-moz-border-radius-bottomleft:31px;
+			border-bottom-left-radius:31px;
+			text-indent:0px;
+			border:1px solid #dcdcdc;
+			display:inline-block;
+			color:#777777;
+			font-family:arial;
+			font-size:13px;
+			font-weight:bold;
+			font-style:normal;
+			height:40px;
+			line-height:30px;
+			width:90px;
+			text-decoration:none;
+			text-align:center;
+			text-shadow:1px 1px 0px #ffffff;
+		}.classname:hover {
+			background-color:#dfdfdf;
+		}.classname:active {
+			position:relative;
+			top:1px;
+		
+		}
+		.user_info {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* user_info Content */
+.user_info-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color:black;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+		</style>
+</head>
+<body>
+	<% include ./../elements/header %>
+	<h3 style="margin: 15px;margin-left:201px">Thông tin tài khoản</h3>
+
+	<div class="row" style="width:1000px;margin:auto">
+			<div class="col-lg-6">
+				<div class="main_input_info_account">
+					<div class="col-lg-12">
+						<div class="form-group relative block_icon_form">
+								<input type="text" class="form-control"  value="<%=customer.name%>"disabled="disabled">
+						</div>
+					</div>
+					<div class="col-lg-12">
+							<div class="form-group relative block_icon_form">
+									<input type="text" class="form-control"  value="<%=customer.account%>"disabled="disabled">
+							</div>
+					</div>
+					<div class="col-lg-12">
+							<div class="form-group relative block_icon_form">
+									<input type="text" class="form-control" value="<%=customer.phoneNumber%>"disabled="disabled">
+							</div>
+					</div>
+					<div class="col-lg-12">
+							<div class="form-group relative block_icon_form">
+									<input type="text" class="form-control"  value="<%=customer.place%>"disabled="disabled">
+							</div>
+					</div>
+					<div class="col-lg-12" style="margin-left: 170px">
+							<div class="form-group relative block_icon_form">
+									<button class="btn" id="myBtn">Cập nhật</button>
+							</div>
+					</div>
+				</div>
+			</div>
+	</div>
+	<div id="update" class="user_info" style="margin-top:50px">
+
+		<!-- user_info content -->
+		<form action="" method="POST">
+		<div class="user_info-content" style="width:400px">
+		  <span class="close">&times;</span>
+		  <input type="text" class="form-control" name="name" style="margin-bottom:5px" value="<%=customer.name%>">
+		  <input type="text" class="form-control" name="phone" style="margin-bottom:5px" value="<%=customer.phoneNumber%>">
+		  <input type="text" class="form-control" name="address" style="margin-bottom:5px" value="<%=customer.place%>">
+		  <input type="submit" name="submit" value="Cập nhật" class="btn" style="margin-left:267px"/>
+		</div>
+	  
+	  </div>
+	</form>
+	
+	  <script>
+		// Get the user_info
+		var user_info = document.getElementById("update");
+		
+		// Get the button that opens the user_info
+		var btn = document.getElementById("myBtn");
+		
+		// Get the <span> element that closes the user_info
+		var span = document.getElementsByClassName("close")[0];
+		
+		// When the user clicks the button, open the user_info 
+		btn.onclick = function() {
+		  user_info.style.display = "block";
+		}
+		
+		// When the user clicks on <span> (x), close the user_info
+		span.onclick = function() {
+		  user_info.style.display = "none";
+		}
+	</script>
+		<% include ./../elements/footer %>
+	
+<!--===============================================================================================-->	
+<script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/vendor/bootstrap/js/popper.js"></script>
+	<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/vendor/select2/select2.min.js"></script>
+	<script>
+		$(".js-select2").each(function(){
+			$(this).select2({
+				minimumResultsForSearch: 20,
+				dropdownParent: $(this).next('.dropDownSelect2')
+			});
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="/vendor/daterangepicker/moment.min.js"></script>
+	<script src="/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="/vendor/slick/slick.min.js"></script>
+	<script src="/js/slick-custom.js"></script>
+<!--===============================================================================================-->
+	<script src="/vendor/parallax100/parallax100.js"></script>
+	<script>
+        $('.parallax100').parallax100();
+	</script>
+<!--===============================================================================================-->
+	<script src="/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+	<script>
+		$('.gallery-lb').each(function() { // the containers for all your galleries
+			$(this).magnificPopup({
+		        delegate: 'a', // the selector for gallery item
+		        type: 'image',
+		        gallery: {
+		        	enabled:true
+		        },
+		        mainClass: 'mfp-fade'
+		    });
+		});
+	</script>
+<!--===============================================================================================-->
+	<script src="/vendor/isotope/isotope.pkgd.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/vendor/sweetalert/sweetalert.min.js"></script>
+	<script>
+		$('.js-addwish-b2, .js-addwish-detail').on('click', function(e){
+			e.preventDefault();
+		});
+
+		$('.js-addwish-b2').each(function(){
+			var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
+			$(this).on('click', function(){
+				swal(nameProduct, "is added to wishlist !", "success");
+
+				$(this).addClass('js-addedwish-b2');
+				$(this).off('click');
+			});
+		});
+
+		$('.js-addwish-detail').each(function(){
+			var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
+
+			$(this).on('click', function(){
+				swal(nameProduct, "is added to wishlist !", "success");
+
+				$(this).addClass('js-addedwish-detail');
+				$(this).off('click');
+			});
+		});
+
+		/*---------------------------------------------*/
+
+		$('.js-addcart-detail').each(function(){
+			var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+			$(this).on('click', function(){
+				swal(nameProduct, "is added to cart !", "success");
+			});
+		});
+	
+	</script>
+<!--===============================================================================================-->
+	<script src="/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script>
+		$('.js-pscroll').each(function(){
+			$(this).css('position','relative');
+			$(this).css('overflow','hidden');
+			var ps = new PerfectScrollbar(this, {
+				wheelSpeed: 1,
+				scrollingThreshold: 1000,
+				wheelPropagation: false,
+			});
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+	</script>
+<!--===============================================================================================-->
+	<script src="/js/main.js"></script>
+
+</body>

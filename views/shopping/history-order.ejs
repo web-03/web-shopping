@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" data-textdirection="ltr" class="loading">
+
+<head>
+	<title>Shoping Cart</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="images/icons/favicon.png" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/linearicons-v1.0.0/icon-font.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<!--===============================================================================================-->
+</head>
+
+<body class=" vertical-layout vertical-menu 2-columns  menu-expanded fixed-navbar">
+
+	<!-- Header -->
+	<% include ./../elements/header %>
+
+
+	<!-- breadcrumb -->
+
+
+<section style="margin:5px">
+	<!-- Shoping Cart -->
+	<!-- <form class="bg0 p-t-75 p-b-85"></form> -->
+	<div class="app-content content container-fluid">
+			<div class="content-wrapper">
+				<div class="content-body">
+	
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-header">
+									<div class="form-group row">
+										<div class="col-md-6 row">
+											<div class="col-md-2">
+												<button type="submit" onclick="done()" class="btn btn-sm btn-success">
+													<i class="ft-search"></i> Đã giao
+												</button>
+											</div>
+	
+											<div class="col-md-2">
+												<button type="submit" onclick="delivering()" class="btn btn-sm btn-primary">
+													<i class="ft-search"></i> Đang giao
+												</button>
+											</div>
+											<div class="col-md-2">
+													<button type="submit" onclick="just()" class="btn btn-sm btn-warning">
+														<i class="ft-search"></i> Đang chờ
+													</button>
+												</div>
+	
+											
+										</div>
+									</div>
+									<hr>
+									<div class="card-body  in">
+										<div class="table-responsive">
+												<table id="done" class="table table-bordered mb-0" style="">
+														<thead>
+															<tr>
+																<th>Ngày</th>
+																<th>Mã đơn hàng</th>
+																<th>Tên khách hàng</th>
+																<th>Địa chỉ</th>
+																<th>Tổng tiền</th>
+																<th>Trạng thái</th>
+															</tr>
+														</thead>
+														<tbody>
+															<% for(var i=0; i< orders.length; i++){ %>
+																<% if(orders[i].status == "2"){ %>
+																<tr>
+																		<td><%= orders[i].create %></td>
+																		<td><a href="/chi-tiet-mua-hang/<%= orders[i].id%>"><%= orders[i].orderName %></a></td>
+																		<td><%= orders[i].customerName %></td>
+																		<td><%= orders[i].address %></td>
+																		<td><%= orders[i].sumMoney %></td>
+																	<td>
+																		<div class="tag tag-warning">Đã giao</div>
+																		
+																	</td>
+																	 
+																</tr>
+																<% }%>
+																<% }%>
+														</tbody>
+													</table>
+											
+											<table id="delivering" class="table table-bordered mb-0" style="display:none;">
+												<thead>
+													<tr>
+															<th>Ngày</th>
+																<th>Mã đơn hàng</th>
+																<th>Tên khách hàng</th>
+																<th>Địa chỉ</th>
+			
+																<th>Tổng tiền</th>
+																<th>Trạng thái</th>
+													</tr>
+												</thead>
+												<tbody>
+													<% for(var i=0; i< orders.length; i++){ %>
+														<% if(orders[i].status == "1"){ %>
+														<tr>
+																<td><%= orders[i].create %></td>
+																<td><a href="/chi-tiet-mua-hang/<%= orders[i].id%>"><%= orders[i].orderName %></a></td>
+																<td><%= orders[i].customerName %></td>
+																<td><%= orders[i].address %></td>
+																<td><%= orders[i].sumMoney %></td>
+															<td>
+																<div class="tag tag-warning">Đang giao</div>
+																
+															</td>
+															 
+														</tr>
+														<% }%>
+														<% }%>
+												</tbody>
+											</table>
+	
+											<table id="just" class="table table-bordered mb-0" style="display:none;">
+													<thead>
+														<tr>
+																<th>Ngày</th>
+																	<th>Mã đơn hàng</th>
+																	<th>Tên khách hàng</th>
+																	<th>Địa chỉ</th>
+				
+																	<th>Tổng tiền</th>
+																	<th>Trạng thái</th>
+														</tr>
+													</thead>
+													<tbody>
+														<% for(var i=0; i< orders.length; i++){ %>
+															<% if(orders[i].status == "0"){ %>
+															<tr>
+																	<td><%= orders[i].create %></td>
+																	<td><a href="/chi-tiet-mua-hang/<%= orders[i].id%>"><%= orders[i].orderName %></a></td>
+																	<td><%= orders[i].customerName %></td>
+																	<td><%= orders[i].address %></td>
+																	<td><%= orders[i].sumMoney %></td>
+																<td>
+																	<div class="tag tag-warning">Đang chờ</div>
+																	
+																</td>
+																 
+															</tr>
+															<% }%>
+															<% }%>
+													</tbody>
+												</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+			
+	
+
+
+	</section>
+
+	<!-- Footer -->
+	<% include ./../elements/footer %>
+
+
+	<!-- Back to top -->
+	<div class="btn-back-to-top" id="myBtn">
+		<span class="symbol-btn-back-to-top">
+			<i class="zmdi zmdi-chevron-up"></i>
+		</span>
+	</div>
+
+	<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+	<script>
+		$(".js-select2").each(function () {
+			$(this).select2({
+				minimumResultsForSearch: 20,
+				dropdownParent: $(this).next('.dropDownSelect2')
+			});
+		})
+	</script>
+	<!--===============================================================================================-->
+	<script src="vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script>
+		$('.js-pscroll').each(function () {
+			$(this).css('position', 'relative');
+			$(this).css('overflow', 'hidden');
+			var ps = new PerfectScrollbar(this, {
+				wheelSpeed: 1,
+				scrollingThreshold: 1000,
+				wheelPropagation: false,
+			});
+
+			$(window).on('resize', function () {
+				ps.update();
+			})
+		});
+		function checkPhone() {
+			var bt = document.getElementById('btnSubmit');
+			var phoneCurrent = $("#phone_number").val();
+			var flag = false;
+			var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+			var mobile = $('#phone_number').val();
+			if (vnf_regex.test(mobile) == false) {
+				$('#phone_number').attr("style", "color: red");
+				$("#errPhoneNumber").attr("style", "");
+				bt.disabled = true;
+				flag = false;
+			} else {
+				$('#phone_number').attr("style", "");
+				$("#errPhoneNumber").attr("style", "display:none;");
+				flag = true;
+				bt.disabled = false;
+			}
+
+		}
+		function done() {
+			$('#done').attr('style', '');
+			$('#delivering').attr('style', 'display:none;');
+			$('#just').attr('style', 'display:none;');
+		}
+		function delivering() {
+			$('#done').attr('style', 'display:none;');
+			$('#delivering').attr('style', '');
+			$('#just').attr('style', 'display:none;');
+		}
+		function just() {
+			$('#done').attr('style', 'display:none;');
+			$('#delivering').attr('style', 'display:none;');
+			$('#just').attr('style', '');
+		}
+	</script>
+	<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+</body>
+
+</html>
